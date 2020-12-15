@@ -1,0 +1,71 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+}
+
+.main {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+}
+
+header {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    background: linear-gradient(to bottom right, rgb(111, 214, 255), rgb(0, 153, 255), rgb(0, 39, 167));
+}
+
+.header__logoplace {
+    height: 100%;
+    width: 10%;
+    margin-left: 5%;
+}
+
+.header_logoplace--img {
+    height: 60px;
+    margin: 5px 10px;    
+}
+
+.header__search {
+    width: 40%;
+    height: 40px;
+    margin: 15px 0 0 25%;
+    display: flex;
+}
+
+.header__search--input {
+    width: 90%;
+    border-width: 2px 1px 2px 2px;
+    border-style: inset;
+    border-radius: 5px 0 0 5px;
+}
+
+.header__search--button {
+    width: 10%;
+    background-color:rgba(0, 0, 0, 0);
+    border-width: 2px 2px 2px 1px;
+    border-style: outset;
+    border-radius: 0 5px 5px 0;
+}
+
+.header__search--icon {
+    height: 60%;
+    color: white;
+}
+
+.header__registration {
+    width: 15%;
+    margin-left: 4%;
+}
+
+.header__registration--button {
+    width: 100px;
+    height: 40px;
+    margin-top: 15px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border-color: white;
+}
