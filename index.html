@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/style.css">
+    <script src="js/openUpList.js" defer></script>
     <title>Market</title>
 </head>
 <body>
@@ -25,6 +26,30 @@
             </div>
         </header>
         <div class="products">
+            <div class="products__categories">
+                <h1>Категории</h1>
+                <ul class="products__categories--ul">
+                    <img class="products__marker" src="img/marker.png">Электроника
+                    <li>Телевизоры</li>
+                    <li class="with-marker">
+                        <ul>
+                            <img class="products__marker" src="img/marker.png">Компьютеры
+                            <li>Ноутбуки</li>
+                            <li>ПК</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="products__categories--ul">
+                    <img class="products__marker" src="img/marker.png">Бытовая техника
+                    <li>Стиральные машины</li>
+                    <li>Микроволновые печи</li>
+                </ul>
+            </div>
+            <div class="products__list">
+                <div class="products__string">
+                    <div class="products__card"></div>
+                </div>
+            </div>
         </div>
         <footer></footer>
     </div>
