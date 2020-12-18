@@ -1,9 +1,9 @@
 class ProductCard {
-    constructor(name, img, price, category) {
+    constructor(name, img, price, categories) {
         this.name = name;
         this.img = img;
         this.price = price;
-        this.category = category;
+        this.categories = categories;
     }
 
     render(parent) {
@@ -12,7 +12,7 @@ class ProductCard {
         element.innerHTML = `
             <img class="card__img" src=${this.img}>
             <p class="card__name">${this.name}</p>
-            <div class="card__price"><p> руб</p></div>
+            <div class="card__price"><p>${this.price} руб</p></div>
         `;
         parent.append(element);
     }
