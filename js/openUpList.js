@@ -1,25 +1,34 @@
 'use strict';
 
-const allLi = document.querySelectorAll('li');
-const allUl = document.querySelectorAll('ul');
+import cardsRender from './cardsRender';
 
-allLi.forEach(li => {
-    li.classList.add('hide');
-    li.addEventListener('click', event => {
-        event.stopPropagation();
-    })
-});
+function openUpList() {
+    const allLi = document.querySelectorAll('li');
+    const allUl = document.querySelectorAll('ul');
 
-allUl.forEach(ul => {
-    ul.addEventListener('click', (event) => {
-        event.stopPropagation();
-        let childLies = ul.querySelectorAll('li');
-        ul.children[0].classList.toggle('open-ul');
-        childLies.forEach(li => {
-            if(li.parentElement === ul) {
-                li.classList.toggle('show');
-                li.classList.toggle('hide');
+    allLi.forEach(li => {
+        li.classList.add('hide');
+        li.addEventListener('click', event => {
+            event.stopPropagation();
+            if(li.dataset.category) {
+                cardsRender(li.dataset.category);
             }
         })
     });
-});
+
+    allUl.forEach(ul => {
+        ul.addEventListener('click', (event) => {
+            event.stopPropagation();
+            let childLies = ul.querySelectorAll('li');
+            ul.children[0].classList.toggle('open-ul');
+            childLies.forEach(li => {
+                if(li.parentElement === ul) {
+                    li.classList.toggle('show');
+                    li.classList.toggle('hide');
+                }
+            })
+        });
+    });
+}
+
+export default openUpList;
