@@ -1,54 +1,71 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/style.css?v=0.001">
-    <script src="js/bundle.js?v=0.002" defer></script>
-    <title>Market</title>
-</head>
-<body>
-    <div class="main">
-        <header>
-            <div class="header__logoplace">
-                <img class="header_logoplace--img" src="./img/logo.png" alt="logo">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/reset.css">
+        <link rel="stylesheet" href="styles/style.css?v=0.002">
+        <script src="js/bundle.js?v=0.004" defer></script>
+        <title>Market</title>
+    </head>
+    <body>
+        <div class="main">
+            <header>
+                <div class="header__logoplace">
+                    <img class="header_logoplace--img" src="./img/logo.png" alt="logo">
+                </div>
+                <div class="header__search">
+                    <input class="header__search--input" type="text" placeholder="Поиск товаров">
+                    <button class="header__search--button">
+                        <img class="header__search--icon" src="img/search-icon.png" alt="search">
+                    </button>
+                </div>
+                <div class="header__registration">
+                    <button class="header__button" id="header__registration">Регистрация</button>
+                    <button class="header__button" id="header__authorization">Авторизация</button>
+                </div>
+            </header>
+            <div class="products">
+                <div class="products__categories">
+                    <h1>Категории</h1>
+                    <ul class="products__categories--ul" data-category="electronics">
+                        <p><img class="products__marker" src="img/marker.png">Электроника</p>
+                        <li data-category="tv"><p>Телевизоры</p></li>
+                        <li class="with-marker">
+                            <ul data-category="computers">
+                                <p><img class="products__marker" src="img/marker.png">Компьютеры</p>
+                                <li data-category="notebook"><p>Ноутбуки</p></li>
+                                <li data-category="pc"><p>ПК</p></li>
+                            </ul>
+                        </li>
+                        <li data-category="game console"><p>Игровые приставки</p></li>
+                    </ul>
+                    <ul class="products__categories--ul" data-category="appliances">
+                        <p><img class="products__marker" src="img/marker.png">Бытовая техника</p>
+                        <li data-category="washer"><p>Стиральные машины</p></li>
+                        <li data-category="microwave"><p>Микроволновые печи</p></li>
+                    </ul>
+                </div>
+                <div class="products__list"></div>
             </div>
-            <div class="header__search">
-                <input class="header__search--input" type="text" placeholder="Поиск товаров">
-                <button class="header__search--button">
-                    <img class="header__search--icon" src="img/search-icon.png" alt="search">
-                </button>
-            </div>
-            <div class="header__registration">
-                <button class="header__registration--button">Регистрация</button>
-                <button class="header__registration--button">Авторизация</button>
-            </div>
-        </header>
-        <div class="products">
-            <div class="products__categories">
-                <h1>Категории</h1>
-                <ul class="products__categories--ul" data-category="electronics">
-                    <p><img class="products__marker" src="img/marker.png">Электроника</p>
-                    <li data-category="tv"><p>Телевизоры</p></li>
-                    <li class="with-marker">
-                        <ul data-category="computers">
-                            <p><img class="products__marker" src="img/marker.png">Компьютеры</p>
-                            <li data-category="notebook"><p>Ноутбуки</p></li>
-                            <li data-category="pc"><p>ПК</p></li>
-                        </ul>
-                    </li>
-                    <li data-category="game console"><p>Игровые приставки</p></li>
-                </ul>
-                <ul class="products__categories--ul" data-category="appliances">
-                    <p><img class="products__marker" src="img/marker.png">Бытовая техника</p>
-                    <li data-category="washer"><p>Стиральные машины</p></li>
-                    <li data-category="microwave"><p>Микроволновые печи</p></li>
-                </ul>
-            </div>
-            <div class="products__list"></div>
+            <footer></footer>
         </div>
-        <footer></footer>
-    </div>
-</body>
+        <div class="modal hide">
+            <div class="modal__window hide" id="modal__registration">
+                <h1 class="modal__h">Регистрация</h1>
+                <p class="modal__close">✖</p>
+                <input class="modal__input" type="text" placeholder="Электронная почта">
+                <input class="modal__input" type="text" placeholder="Логин">
+                <input class="modal__input" type="password" placeholder="Пароль">
+                <button class="modal__button">Отправить</button>
+            </div>
+            <div class="modal__window hide" id="modal__authorization">
+                <h1 class="modal__h">Авторизация</h1>
+                <p class="modal__close">✖</p>
+                <input class="modal__input" type="text" placeholder="Логин">
+                <input class="modal__input" type="password" placeholder="Пароль">
+                <button class="modal__button">Отправить</button>
+            </div>
+        </div>
+    </body>
 </html>

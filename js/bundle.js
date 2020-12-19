@@ -87,6 +87,70 @@ function cardsRender(category) {
 
 /***/ }),
 
+/***/ "./js/modal.js":
+/*!*********************!*\
+  !*** ./js/modal.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+'use script';
+
+function closeModal(modal, modalOverlay) {
+    modal.classList.add('hide');
+    modal.classList.remove('show');
+    modalOverlay.classList.add('hide');
+    modalOverlay.classList.remove('show');
+}
+
+function openModal(modal, modalOverlay) {
+    modal.classList.remove('hide');
+    modal.classList.add('show');
+    modalOverlay.classList.remove('hide');
+    modalOverlay.classList.add('show');
+}
+
+function modal() {
+
+    const modalOverlay = document.querySelector('.modal');
+    const modalRegistration = document.querySelector('#modal__registration');
+    const modalAuthorization = document.querySelector('#modal__authorization');
+    const registrationButton = document.querySelector('#header__registration');
+    const authorizationButton = document.querySelector('#header__authorization');
+    let closeModalButtons = document.querySelectorAll('.modal__close');
+    closeModalButtons = Array.prototype.slice.call(closeModalButtons);
+    const modalButton = document.querySelector('.modal__button');
+
+    registrationButton.addEventListener('click', () => {
+        openModal(modalRegistration, modalOverlay);
+    });
+
+    authorizationButton.addEventListener('click', () => {
+        openModal(modalAuthorization, modalOverlay);
+    });
+
+    modalOverlay.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if ((event.target === modalOverlay
+                || closeModalButtons.includes(event.target))
+                    && modalRegistration.classList.contains('show')) {
+                        closeModal(modalRegistration, modalOverlay);
+        } else if ((event.target === modalOverlay
+                    || closeModalButtons.includes(event.target))
+                        && modalAuthorization.classList.contains('show')) {
+                            closeModal(modalAuthorization, modalOverlay);
+        }
+    })
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
+
+/***/ }),
+
 /***/ "./js/openUpList.js":
 /*!**************************!*\
   !*** ./js/openUpList.js ***!
@@ -213,11 +277,14 @@ const getResource = async (url) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _openUpList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./openUpList */ "./js/openUpList.js");
 /* harmony import */ var _cardsRender__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cardsRender */ "./js/cardsRender.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
+
 
 
 
 (0,_openUpList__WEBPACK_IMPORTED_MODULE_0__.default)();
 (0,_cardsRender__WEBPACK_IMPORTED_MODULE_1__.default)('all');
+(0,_modal__WEBPACK_IMPORTED_MODULE_2__.default)();
 
 /***/ }),
 
