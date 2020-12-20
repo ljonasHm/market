@@ -16,9 +16,10 @@ function openModal(modal, modalOverlay) {
 
 function modal() {
 
-    const modalOverlay = document.querySelector('.modal');
+    const modalOverlay = document.querySelector('.modal__overlay');
     const modalRegistration = document.querySelector('#modal__registration');
     const modalAuthorization = document.querySelector('#modal__authorization');
+    const modalCard = document.querySelector('.modal__card');
     const registrationButton = document.querySelector('#header__registration');
     const authorizationButton = document.querySelector('#header__authorization');
     let closeModalButtons = document.querySelectorAll('.modal__close');
@@ -43,6 +44,10 @@ function modal() {
                     || closeModalButtons.includes(event.target))
                         && modalAuthorization.classList.contains('show')) {
                             closeModal(modalAuthorization, modalOverlay);
+        } else if ((event.target === modalOverlay
+                    || closeModalButtons.includes(event.target))
+                        && modalCard.classList.contains('show')) {
+                            closeModal(modalCard, modalOverlay);
         }
     })
 }

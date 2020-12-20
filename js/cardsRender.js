@@ -26,7 +26,7 @@ function cardsRender(category) {
     then(data => {
         data.forEach((card) => {
             if (card.categories.includes(category) || category === 'all') {
-                new ProductCard(card.name, card.img, card.price, card.categories).render(calcParent());
+                new ProductCard(card.name, card.img, card.price, card.categories, card.characteristics).render(calcParent());
             }
         })
     });

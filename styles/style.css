@@ -143,6 +143,7 @@ ul {
 .products__card {
     position: relative;
     text-align: center;
+    cursor: pointer;
     height: 100%;
     width: 23%;
     margin: 0 1%;
@@ -152,6 +153,8 @@ ul {
 .card__img {
     height: 60%;
     width: 100%;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
 }
 
 .card__name {
@@ -171,7 +174,7 @@ ul {
     text-decoration: underline;
 }
 
-.modal {
+.modal__overlay {
     width: 100%;
     height: 100%;
     min-height: 900px;
@@ -221,4 +224,68 @@ ul {
     top: 10px;
     right: 20px;
     font-size: 30px;
+}
+
+.modal__card {
+    position: relative;
+    width: 50%;
+    height: 80%;
+    padding: 20px 50px;
+    top: 10%;
+    margin: auto;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    background: linear-gradient(to bottom right, rgb(40, 194, 255), rgb(0, 153, 255), rgb(0, 39, 167));
+}
+
+.modal__card-image {
+    width: 90%;
+    height: 95%;
+    margin: auto;
+    background-size: auto 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.modal__card-image-block {
+    width: 80%;
+    height: 100%;
+}
+
+.modal__card-price {
+    font-size: 25px;
+    text-align: center;
+}
+
+.modal__characteristics-h2 {
+    font-size: 22px;
+}
+
+.modal__characteristics-p {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.modal__slider {
+    display: flex;
+    width: 100%;
+    height: 50%;
+}
+
+.modal__slider-button {
+    width: 10%;
+    height: 100%;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+#modal__slider-arrow-left {
+    background-image: url(../img/arrow-left.png);
+}
+
+#modal__slider-arrow-right {
+    background-image: url(../img/arrow-right.png);
 }

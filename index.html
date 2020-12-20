@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/reset.css">
-        <link rel="stylesheet" href="styles/style.css?v=0.002">
-        <script src="js/bundle.js?v=0.004" defer></script>
+        <link rel="stylesheet" href="styles/style.css?v=0.008">
+        <script src="js/bundle.js?v=0.005" defer></script>
         <title>Market</title>
     </head>
     <body>
@@ -50,7 +50,7 @@
             </div>
             <footer></footer>
         </div>
-        <div class="modal hide">
+        <div class="modal__overlay hide">
             <div class="modal__window hide" id="modal__registration">
                 <h1 class="modal__h">Регистрация</h1>
                 <p class="modal__close">✖</p>
@@ -65,6 +65,20 @@
                 <input class="modal__input" type="text" placeholder="Логин">
                 <input class="modal__input" type="password" placeholder="Пароль">
                 <button class="modal__button">Отправить</button>
+            </div>
+            <div class="modal__card hide">
+                <p class="modal__close">✖</p>
+                <div class="modal__slider">
+                    <div class="modal__slider-button" id="modal__slider-arrow-left"></div>
+                    <div class="modal__card-image-block">
+                        <div class="modal__card-image"></div>
+                    </div>
+                    <div class="modal__slider-button" id="modal__slider-arrow-right"></div>
+                </div>
+                <h1></h1>
+                <p class="modal__card-price"></p>
+                <h2 class="modal__characteristics-h2">Характеристики:</h2>
+                <div class="modal__characteristics-list"></div>
             </div>
         </div>
     </body>
