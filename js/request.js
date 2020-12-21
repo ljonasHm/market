@@ -1,5 +1,7 @@
 'use strict';
 
+import { application } from "express";
+
 const getResource = async (url) => {
     const result = await fetch(url);
     

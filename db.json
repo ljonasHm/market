@@ -2,7 +2,11 @@
     "products": [
         {
             "name": "Xbox series X + геймпад",
-            "img": "img/xbox.jpg",
+            "img": [
+                "img/xbox.jpg",
+                "img/xbox2.jpg",
+                "img/xbox3.jpg"
+            ],
             "price": "50 000",
             "categories": [
                 "game console",
@@ -15,7 +19,9 @@
         },
         {
             "name": "Samsung UE40KU6020U",
-            "img": "img/samsung-tv.jpg",
+            "img": [
+                "img/samsung-tv.jpg"
+            ],
             "price": "35 000",
             "categories": [
                 "tv",
@@ -24,7 +30,9 @@
         },
         {
             "name": "Ноутбук ACER Aspire 3 A317-51G-78XF",
-            "img": "img/acer-aspire.jpg",
+            "img": [
+                "img/acer-aspire.jpg"
+            ],
             "price": "62 990",
             "categories": [
                 "notebook",
@@ -34,7 +42,9 @@
         },
         {
             "name": "Системный блок игровой HyperPC M6",
-            "img": "img/HyperPC.jpg",
+            "img": [
+                "img/HyperPC.jpg"
+            ],
             "price": "101 990",
             "categories": [
                 "pc",
@@ -44,7 +54,9 @@
         },
         {
             "name": "Electrolux PerfectCare 600 EW6S4R06W",
-            "img": "img/Electrolux.jpg",
+            "img": [
+                "img/Electrolux.jpg"
+            ],
             "price": "19 990",
             "categories": [
                 "washer",
@@ -53,7 +65,9 @@
         },
         {
             "name": "Микроволновая печь Gorenje MO20MW",
-            "img": "img/Gorenje.jpeg",
+            "img": [
+                "img/Gorenje.jpeg"
+            ],
             "price": "3 490",
             "categories": [
                 "microwave",

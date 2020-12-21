@@ -2,6 +2,7 @@ body, html {
     height: 100%;
     min-height: 900px;
     width: 100%;
+    min-width: 1080px;
     background-color: rgb(255, 255, 255);
 }
 
@@ -228,7 +229,7 @@ ul {
 
 .modal__card {
     position: relative;
-    width: 50%;
+    width: 720px;
     height: 80%;
     padding: 20px 50px;
     top: 10%;
@@ -248,8 +249,22 @@ ul {
     background-repeat: no-repeat;
 }
 
+.modal__slider-string {
+    position: relative;
+    height: 100%;
+    display: flex;
+    transition: transform 1s;
+}
+
+.modal__slider-block {
+    position: relative;
+    width: 500px;
+    height: 100%;
+    overflow: hidden;
+}
+
 .modal__card-image-block {
-    width: 80%;
+    width: 500px;
     height: 100%;
 }
 
@@ -269,17 +284,18 @@ ul {
 
 .modal__slider {
     display: flex;
-    width: 100%;
+    width: 616px;
     height: 50%;
 }
 
 .modal__slider-button {
-    width: 10%;
+    width: 58px;
     height: 100%;
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
+    transition: background-size 0.1s ease-out 0s;
 }
 
 #modal__slider-arrow-left {
