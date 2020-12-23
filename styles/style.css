@@ -305,3 +305,18 @@ ul {
 #modal__slider-arrow-right {
     background-image: url(../img/arrow-right.png);
 }
+
+.modal__loading {
+    position: relative;
+    top: 40%
+}
+
+.modal__spinner-p {
+    text-align: center;
+}
+
+.modal__status-p {
+    margin: 20px;
+    text-align: center;
+    font-size: 25px;
+}

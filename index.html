@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/reset.css">
-        <link rel="stylesheet" href="styles/style.css?v=0.012">
-        <script src="js/bundle.js?v=0.008" defer></script>
+        <link rel="stylesheet" href="styles/style.css?v=0.014">
+        <script src="js/bundle.js?v=0.013" defer></script>
         <title>Market</title>
     </head>
     <body>
@@ -52,19 +52,23 @@
         </div>
         <div class="modal__overlay hide">
             <div class="modal__window hide" id="modal__registration">
-                <h1 class="modal__h">Регистрация</h1>
-                <p class="modal__close">✖</p>
-                <input class="modal__input" type="text" placeholder="Электронная почта">
-                <input class="modal__input" type="text" placeholder="Логин">
-                <input class="modal__input" type="password" placeholder="Пароль">
-                <button class="modal__button">Отправить</button>
+                <form class="modal__registration-form">
+                    <h1 class="modal__h">Регистрация</h1>
+                    <p class="modal__close">✖</p>
+                    <input class="modal__input" name="mail" type="text" placeholder="Электронная почта">
+                    <input class="modal__input" name="login" type="text" placeholder="Логин">
+                    <input class="modal__input" name="password" type="password" placeholder="Пароль">
+                    <button class="modal__button" id="modal__button-registration">Отправить</button>
+                </form>
             </div>
             <div class="modal__window hide" id="modal__authorization">
-                <h1 class="modal__h">Авторизация</h1>
-                <p class="modal__close">✖</p>
-                <input class="modal__input" type="text" placeholder="Логин">
-                <input class="modal__input" type="password" placeholder="Пароль">
-                <button class="modal__button">Отправить</button>
+                <form class="modal__authorization-form">
+                    <h1 class="modal__h">Авторизация</h1>
+                    <p class="modal__close">✖</p>
+                    <input class="modal__input" name="login" type="text" placeholder="Логин">
+                    <input class="modal__input" name="password" type="password" placeholder="Пароль">
+                    <button class="modal__button" id="modal__button-authorization">Отправить</button>
+                </form>
             </div>
             <div class="modal__card hide">
                 <p class="modal__close">✖</p>
@@ -79,6 +83,10 @@
                 <p class="modal__card-price"></p>
                 <h2 class="modal__characteristics-h2">Характеристики:</h2>
                 <div class="modal__characteristics-list"></div>
+            </div>
+            <div class="modal__window hide" id="modal__status"></div>
+            <div class="modal__loading hide">
+                <p class="modal__spinner-p"><img class="modal__spinner" src="img/spinner.gif" alt="loading"></p>
             </div>
         </div>
     </body>

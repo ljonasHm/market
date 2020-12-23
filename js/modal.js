@@ -25,6 +25,7 @@ function modal() {
     let closeModalButtons = document.querySelectorAll('.modal__close');
     closeModalButtons = Array.prototype.slice.call(closeModalButtons);
     const modalButton = document.querySelector('.modal__button');
+    const modalStatus = document.querySelector('#modal__status');
 
     registrationButton.addEventListener('click', () => {
         openModal(modalRegistration, modalOverlay);
@@ -41,15 +42,19 @@ function modal() {
                     && modalRegistration.classList.contains('show')) {
                         closeModal(modalRegistration, modalOverlay);
         } else if ((event.target === modalOverlay
-                    || closeModalButtons.includes(event.target))
-                        && modalAuthorization.classList.contains('show')) {
-                            closeModal(modalAuthorization, modalOverlay);
+                || closeModalButtons.includes(event.target))
+                    && modalAuthorization.classList.contains('show')) {
+                        closeModal(modalAuthorization, modalOverlay);
         } else if ((event.target === modalOverlay
-                    || closeModalButtons.includes(event.target))
-                        && modalCard.classList.contains('show')) {
-                            closeModal(modalCard, modalOverlay);
+                || closeModalButtons.includes(event.target))
+                    && modalCard.classList.contains('show')) {
+                        closeModal(modalCard, modalOverlay);
+        } else if ((event.target === modalOverlay
+            || closeModalButtons.includes(event.target))
+                && modalStatus.classList.contains('show')) {
+                    closeModal(modalStatus, modalOverlay);
         }
-    })
+    });
 }
 
 export default modal;
