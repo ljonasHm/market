@@ -140,6 +140,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request */ "./js/request.js");
+// import FormData from 'form-data';
 
 
 'use strict';
@@ -153,9 +154,9 @@ function form() {
     const statusWindow = document.querySelector('#modal__status');
     const loadingWindow = document.querySelector('.modal__loading');
 
-    registrationForm.addEventListener('submit', (e) => {
+    registrationForm.addEventListener('submit', (event) => {
 
-        e.preventDefault();
+        event.preventDefault();
         registrationWindow.classList.add('hide');
         registrationWindow.classList.remove('show');
         loadingWindow.classList.remove('hide');
@@ -163,22 +164,22 @@ function form() {
 
         const registrationData = new FormData(registrationForm);
         const jsonData = JSON.stringify(Object.fromEntries(registrationData.entries()));
-        let canPost = true;
 
         (0,_request__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/users')
-        .then((data) => {
-            data.forEach((user) => {
-                if (user.login === JSON.parse(jsonData).login) {
-                    showStatusModal('Такой логин существует');
-                    canPost = false;
-                } else if (user.mail === JSON.parse(jsonData).mail) {
-                    showStatusModal('Такой почтовый адрес уже зарегистрирован');
-                    canPost = false;
-                }
-            })
-        })
-        .then(() => {
-            if (canPost) {
+        .then(data => {
+            if (data.some((serverDataElement) => {
+                return ((serverDataElement.mail == JSON.parse(jsonData).mail && serverDataElement.login == JSON.parse(jsonData).login) ? true : false);
+            })) {
+                showStatusModal('Такой почтовый адрес и логин уже зарегестрированы');
+            } else if (data.some((serverDataElement) => {
+                return ((serverDataElement.mail == JSON.parse(jsonData).mail) ? true : false);
+            })) {
+                showStatusModal('Такой почтовый адрес уже зарегестрирован');
+            } else if (data.some((serverDataElement) => {
+                return ((serverDataElement.login == JSON.parse(jsonData).login) ? true : false);
+            })) {
+                showStatusModal('Такой логин уже существует');
+            } else {
                 (0,_request__WEBPACK_IMPORTED_MODULE_0__.postResource)('http://localhost:3000/users', jsonData)
                 .then(() => {
                     showStatusModal('Регистрация прошла успешно');
@@ -187,6 +188,35 @@ function form() {
                 .catch(() => {
                     showStatusModal('Произошла ошибка');
                 });
+            }
+        })
+    })
+
+    authorizationForm.addEventListener('submit', (event) => {
+
+        event.preventDefault();
+
+        authorizationWindow.classList.add('hide');
+        authorizationWindow.classList.remove('show');
+        loadingWindow.classList.remove('hide');
+        loadingWindow.classList.add('show');
+
+        const authorizationData = new FormData(authorizationForm);
+        const jsonData = JSON.stringify(Object.fromEntries(authorizationData.entries()));
+
+        (0,_request__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/users')
+        .then((data) => {
+            if(data.some((serverDataElement) => {
+                if (serverDataElement.login == JSON.parse(jsonData).login && serverDataElement.password == JSON.parse(jsonData).password) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })) {
+                    showStatusModal('Вы успешно авторизованы');
+                    authorizationForm.reset;
+                } else {
+                    showStatusModal('Введены неверный логин и/или пароль');
             }
         })
     })

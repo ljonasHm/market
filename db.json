@@ -87,6 +87,12 @@
       "login": "admin",
       "password": "admin",
       "id": 2
+    },
+    {
+      "mail": "anton",
+      "login": "anton",
+      "password": "anton",
+      "id": 3
     }
   ]
 }
