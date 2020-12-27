@@ -1,6 +1,7 @@
 // import FormData from 'form-data';
 import {postResource} from './request';
 import {getResource} from './request';
+import changeUser from './changeUser';
 'use strict';
 
 function form() {
@@ -42,11 +43,16 @@ function form() {
                 .then(() => {
                     showStatusModal('Регистрация прошла успешно');
                     registrationForm.reset();
+                    localStorage.setItem('user', JSON.parse(jsonData).login);
+                    changeUser(JSON.parse(jsonData).login);
                 })
                 .catch(() => {
-                    showStatusModal('Произошла ошибка');
+                    showStatusModal('Произошла ошибка при загрузке данных на сервер');
                 });
             }
+        })
+        .catch(() => {
+            showStatusModal('Произошла ошибка при запросе с сервера');
         })
     })
 
@@ -73,9 +79,14 @@ function form() {
             })) {
                     showStatusModal('Вы успешно авторизованы');
                     authorizationForm.reset;
+                    localStorage.setItem('user', JSON.parse(jsonData).login);
+                    changeUser(JSON.parse(jsonData).login);
                 } else {
                     showStatusModal('Введены неверный логин и/или пароль');
             }
+        })
+        .catch(() => {
+            showStatusModal('Произошла ошибка при запросе с сервера');
         })
     })
 

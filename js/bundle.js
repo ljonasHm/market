@@ -128,6 +128,31 @@ function cardsRender(category) {
 
 /***/ }),
 
+/***/ "./js/changeUser.js":
+/*!**************************!*\
+  !*** ./js/changeUser.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+function changeUser(userLogin) {
+    const buttonsHeader = document.querySelectorAll('.header__button');
+    const loginButton = document.querySelector('#header__login-button');
+
+    buttonsHeader.forEach((button) => {
+        button.classList.toggle('hide');
+    });
+    loginButton.innerHTML = userLogin;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (changeUser);
+
+/***/ }),
+
 /***/ "./js/form.js":
 /*!********************!*\
   !*** ./js/form.js ***!
@@ -140,7 +165,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request */ "./js/request.js");
+/* harmony import */ var _changeUser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./changeUser */ "./js/changeUser.js");
 // import FormData from 'form-data';
+
 
 
 'use strict';
@@ -184,11 +211,16 @@ function form() {
                 .then(() => {
                     showStatusModal('Регистрация прошла успешно');
                     registrationForm.reset();
+                    localStorage.setItem('user', JSON.parse(jsonData).login);
+                    (0,_changeUser__WEBPACK_IMPORTED_MODULE_1__.default)(JSON.parse(jsonData).login);
                 })
                 .catch(() => {
-                    showStatusModal('Произошла ошибка');
+                    showStatusModal('Произошла ошибка при загрузке данных на сервер');
                 });
             }
+        })
+        .catch(() => {
+            showStatusModal('Произошла ошибка при запросе с сервера');
         })
     })
 
@@ -215,9 +247,14 @@ function form() {
             })) {
                     showStatusModal('Вы успешно авторизованы');
                     authorizationForm.reset;
+                    localStorage.setItem('user', JSON.parse(jsonData).login);
+                    (0,_changeUser__WEBPACK_IMPORTED_MODULE_1__.default)(JSON.parse(jsonData).login);
                 } else {
                     showStatusModal('Введены неверный логин и/или пароль');
             }
+        })
+        .catch(() => {
+            showStatusModal('Произошла ошибка при запросе с сервера');
         })
     })
 
@@ -232,6 +269,30 @@ function form() {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (form);
+
+/***/ }),
+
+/***/ "./js/login.js":
+/*!*********************!*\
+  !*** ./js/login.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _changeUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./changeUser */ "./js/changeUser.js");
+
+
+function login() {
+    if (localStorage.getItem('user')) {
+        (0,_changeUser__WEBPACK_IMPORTED_MODULE_0__.default)(localStorage.getItem('user'));
+    }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (login);
 
 /***/ }),
 
@@ -456,6 +517,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cardsRender__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cardsRender */ "./js/cardsRender.js");
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
 /* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./form */ "./js/form.js");
+/* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login */ "./js/login.js");
+
 
 
 
@@ -465,6 +528,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,_cardsRender__WEBPACK_IMPORTED_MODULE_1__.default)('all');
 (0,_modal__WEBPACK_IMPORTED_MODULE_2__.default)();
 (0,_form__WEBPACK_IMPORTED_MODULE_3__.default)();
+(0,_login__WEBPACK_IMPORTED_MODULE_4__.default)();
 
 /***/ }),
 
