@@ -16,12 +16,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ProductCard {
-    constructor(name, img, price, categories, characteristics) {
+    constructor(name, images, price, categories, characteristics, cardSliderSettings) {
         this.name = name;
-        this.img = img;
+        this.mainImage = images[0];
+        this.images = images;
         this.price = price;
         this.categories = categories;
         this.characteristics = characteristics;
+        this.cardSliderSettings = cardSliderSettings;
     }
 
     renderCharacteristics() {
@@ -53,7 +55,7 @@ class ProductCard {
         this.renderCharacteristics();
         sliderString.innerHTML = '';
         sliderString.style.transform = 'translateX(0)';
-        (0,_slider__WEBPACK_IMPORTED_MODULE_0__.default)(this.img);
+        (0,_slider__WEBPACK_IMPORTED_MODULE_0__.default)(this.cardSliderSettings, this.images);
     }
 
     render(parent) {
@@ -64,7 +66,7 @@ class ProductCard {
             <p class="card__name">${this.name}</p>
             <div class="card__price"><p>${this.price} руб</p></div>
         `;
-        element.querySelector('.card__img').style.backgroundImage = `url(${this.img[0]})`;
+        element.querySelector('.card__img').style.backgroundImage = `url(${this.mainImage})`;
         parent.append(element);
         this.element = element;
         element.addEventListener('click', () => {
@@ -112,13 +114,13 @@ function calcParent() {
     }
 }
 
-function cardsRender(category) {
+function cardsRender(category, cardSliderSettings) {
     document.querySelector('.products__list').innerHTML = '';
     (0,_request__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/products').
     then(data => {
         data.forEach((card) => {
             if (card.categories.includes(category) || category === 'all') {
-                new _card__WEBPACK_IMPORTED_MODULE_1__.ProductCard(card.name, card.img, card.price, card.categories, card.characteristics).render(calcParent());
+                new _card__WEBPACK_IMPORTED_MODULE_1__.ProductCard(card.name, card.images, card.price, card.categories, card.characteristics, cardSliderSettings).render(calcParent());
             }
         })
     });
@@ -309,20 +311,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 'use script';
 
-function closeModal(modal, modalOverlay) {
-    modal.classList.add('hide');
-    modal.classList.remove('show');
-    modalOverlay.classList.add('hide');
-    modalOverlay.classList.remove('show');
-}
-
-function openModal(modal, modalOverlay) {
-    modal.classList.remove('hide');
-    modal.classList.add('show');
-    modalOverlay.classList.remove('hide');
-    modalOverlay.classList.add('show');
-}
-
 function modal() {
 
     const modalOverlay = document.querySelector('.modal__overlay');
@@ -333,7 +321,6 @@ function modal() {
     const authorizationButton = document.querySelector('#header__authorization');
     let closeModalButtons = document.querySelectorAll('.modal__close');
     closeModalButtons = Array.prototype.slice.call(closeModalButtons);
-    const modalButton = document.querySelector('.modal__button');
     const modalStatus = document.querySelector('#modal__status');
 
     registrationButton.addEventListener('click', () => {
@@ -364,6 +351,20 @@ function modal() {
                     closeModal(modalStatus, modalOverlay);
         }
     });
+
+    function closeModal(modal, modalOverlay) {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        modalOverlay.classList.add('hide');
+        modalOverlay.classList.remove('show');
+    }
+    
+    function openModal(modal, modalOverlay) {
+        modal.classList.remove('hide');
+        modal.classList.add('show');
+        modalOverlay.classList.remove('hide');
+        modalOverlay.classList.add('show');
+    }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
@@ -524,8 +525,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(0,_openUpList__WEBPACK_IMPORTED_MODULE_0__.default)();
-(0,_cardsRender__WEBPACK_IMPORTED_MODULE_1__.default)('all');
+const cardSliderSettings = {
+    sliderStringClassName: '.modal__slider-string',
+    sliderButtonLeftId: '#modal__slider-arrow-left',
+    sliderButtonRightId: '#modal__slider-arrow-right',
+    imageWrapperClassName: 'modal__card-image-block',
+    imageDivClassName: 'modal__card-image',
+    buttonsAnimation: true,
+    widthOfImgWrapper: 500
+}
+
+;(0,_openUpList__WEBPACK_IMPORTED_MODULE_0__.default)();
+(0,_cardsRender__WEBPACK_IMPORTED_MODULE_1__.default)('all', cardSliderSettings);
 (0,_modal__WEBPACK_IMPORTED_MODULE_2__.default)();
 (0,_form__WEBPACK_IMPORTED_MODULE_3__.default)();
 (0,_login__WEBPACK_IMPORTED_MODULE_4__.default)();
@@ -545,52 +556,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 
 
-function slider(imgForSlides) {
-    const slider = document.querySelector('.modal__slider');
-    const slidesBlock = document.querySelector('.modal__slider-string');
-    const sliderButtonLeft = document.querySelector('#modal__slider-arrow-left');
-    const sliderButtonRight = document.querySelector('#modal__slider-arrow-right');
+function slider(settings, images) {
+    
+    const sliderString = document.querySelector(settings.sliderStringClassName);
+    const sliderButtonLeft = document.querySelector(settings.sliderButtonLeftId);
+    const sliderButtonRight = document.querySelector(settings.sliderButtonRightId);
     let slidePlace = 0;
 
-    slidesBlock.style.width = imgForSlides.length * 500 + 'px';
+    sliderString.style.width = images.length * settings.widthOfImgWrapper + 'px';
 
-    imgForSlides.forEach((img) => {
-        const slideShell = document.createElement('div');
-        const slide = document.createElement('div');
+    images.forEach((img) => {
+        const imageWrapper = document.createElement('div');
+        const imageDiv = document.createElement('div');
 
-        slideShell.classList.add('modal__card-image-block');
-        slide.classList.add('modal__card-image');
+        imageWrapper.classList.add(settings.imageWrapperClassName);
+        imageDiv.classList.add(settings.imageDivClassName);
 
-        slide.style.backgroundImage = `url(${img})`;
-        slideShell.append(slide);
-        slidesBlock.append(slideShell);
+        imageDiv.style.backgroundImage = `url(${img})`;
+        imageWrapper.append(imageDiv);
+        sliderString.append(imageWrapper);
     });
 
     sliderButtonLeft.addEventListener('click', () => {
-        sliderButtonLeft.style.backgroundSize = '90% auto';
-        setTimeout(() => {
-            sliderButtonLeft.style.backgroundSize = '100% auto';
-        }, 100);
+        
+        if (settings.buttonsAnimation) {
+            sliderButtonLeft.style.backgroundSize = '90% auto';
+            setTimeout(() => {
+                sliderButtonLeft.style.backgroundSize = '100% auto';
+            }, 100);
+        }
+        
         if(slidePlace < 0) {
-            slidesBlock.style.transform = `translateX(${slidePlace + 500}px)`;
-            slidePlace = slidePlace + 500;
+            sliderString.style.transform = `translateX(${slidePlace + settings.widthOfImgWrapper}px)`;
+            slidePlace = slidePlace + settings.widthOfImgWrapper;
         } else {
-            slidePlace = (imgForSlides.length * -500) + 500;
-            slidesBlock.style.transform = `translateX(${slidePlace}px)`;
+            slidePlace = (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper;
+            sliderString.style.transform = `translateX(${slidePlace}px)`;
         }
     });
 
     sliderButtonRight.addEventListener('click', () => {
-        sliderButtonRight.style.backgroundSize = '90% auto';
-        setTimeout(() => {
-            sliderButtonRight.style.backgroundSize = '100% auto';
-        }, 100);
-        if (slidePlace > (imgForSlides.length * -500) + 500) {
-            slidesBlock.style.transform = `translateX(${slidePlace - 500}px)`;
-            slidePlace = slidePlace - 500;
+        if (settings.buttonsAnimation) {
+            sliderButtonRight.style.backgroundSize = '90% auto';
+            setTimeout(() => {
+                sliderButtonRight.style.backgroundSize = '100% auto';
+            }, 100);            
+        }
+        
+        if (slidePlace > (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper) {
+            sliderString.style.transform = `translateX(${slidePlace - settings.widthOfImgWrapper}px)`;
+            slidePlace = slidePlace - settings.widthOfImgWrapper;
         } else {
             slidePlace = 0;
-            slidesBlock.style.transform = `translateX(${slidePlace}px)`;
+            sliderString.style.transform = `translateX(${slidePlace}px)`;
         }
     });
 }

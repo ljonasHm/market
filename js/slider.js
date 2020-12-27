@@ -1,51 +1,58 @@
 'use strict';
 
-function slider(imgForSlides) {
-    const slider = document.querySelector('.modal__slider');
-    const slidesBlock = document.querySelector('.modal__slider-string');
-    const sliderButtonLeft = document.querySelector('#modal__slider-arrow-left');
-    const sliderButtonRight = document.querySelector('#modal__slider-arrow-right');
+function slider(settings, images) {
+    
+    const sliderString = document.querySelector(settings.sliderStringSelector);
+    const sliderButtonLeft = document.querySelector(settings.sliderButtonLeftSelector);
+    const sliderButtonRight = document.querySelector(settings.sliderButtonRightSelector);
     let slidePlace = 0;
 
-    slidesBlock.style.width = imgForSlides.length * 500 + 'px';
+    sliderString.style.width = images.length * settings.widthOfImgWrapper + 'px';
 
-    imgForSlides.forEach((img) => {
-        const slideShell = document.createElement('div');
-        const slide = document.createElement('div');
+    images.forEach((img) => {
+        const imageWrapper = document.createElement('div');
+        const imageDiv = document.createElement('div');
 
-        slideShell.classList.add('modal__card-image-block');
-        slide.classList.add('modal__card-image');
+        imageWrapper.classList.add(settings.imageWrapperClassName);
+        imageDiv.classList.add(settings.imageDivClassName);
 
-        slide.style.backgroundImage = `url(${img})`;
-        slideShell.append(slide);
-        slidesBlock.append(slideShell);
+        imageDiv.style.backgroundImage = `url(${img})`;
+        imageWrapper.append(imageDiv);
+        sliderString.append(imageWrapper);
     });
 
     sliderButtonLeft.addEventListener('click', () => {
-        sliderButtonLeft.style.backgroundSize = '90% auto';
-        setTimeout(() => {
-            sliderButtonLeft.style.backgroundSize = '100% auto';
-        }, 100);
+        
+        if (settings.buttonsAnimation) {
+            sliderButtonLeft.style.backgroundSize = '90% auto';
+            setTimeout(() => {
+                sliderButtonLeft.style.backgroundSize = '100% auto';
+            }, 100);
+        }
+        
         if(slidePlace < 0) {
-            slidesBlock.style.transform = `translateX(${slidePlace + 500}px)`;
-            slidePlace = slidePlace + 500;
+            sliderString.style.transform = `translateX(${slidePlace + settings.widthOfImgWrapper}px)`;
+            slidePlace = slidePlace + settings.widthOfImgWrapper;
         } else {
-            slidePlace = (imgForSlides.length * -500) + 500;
-            slidesBlock.style.transform = `translateX(${slidePlace}px)`;
+            slidePlace = (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper;
+            sliderString.style.transform = `translateX(${slidePlace}px)`;
         }
     });
 
     sliderButtonRight.addEventListener('click', () => {
-        sliderButtonRight.style.backgroundSize = '90% auto';
-        setTimeout(() => {
-            sliderButtonRight.style.backgroundSize = '100% auto';
-        }, 100);
-        if (slidePlace > (imgForSlides.length * -500) + 500) {
-            slidesBlock.style.transform = `translateX(${slidePlace - 500}px)`;
-            slidePlace = slidePlace - 500;
+        if (settings.buttonsAnimation) {
+            sliderButtonRight.style.backgroundSize = '90% auto';
+            setTimeout(() => {
+                sliderButtonRight.style.backgroundSize = '100% auto';
+            }, 100);            
+        }
+        
+        if (slidePlace > (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper) {
+            sliderString.style.transform = `translateX(${slidePlace - settings.widthOfImgWrapper}px)`;
+            slidePlace = slidePlace - settings.widthOfImgWrapper;
         } else {
             slidePlace = 0;
-            slidesBlock.style.transform = `translateX(${slidePlace}px)`;
+            sliderString.style.transform = `translateX(${slidePlace}px)`;
         }
     });
 }

@@ -1,19 +1,5 @@
 'use script';
 
-function closeModal(modal, modalOverlay) {
-    modal.classList.add('hide');
-    modal.classList.remove('show');
-    modalOverlay.classList.add('hide');
-    modalOverlay.classList.remove('show');
-}
-
-function openModal(modal, modalOverlay) {
-    modal.classList.remove('hide');
-    modal.classList.add('show');
-    modalOverlay.classList.remove('hide');
-    modalOverlay.classList.add('show');
-}
-
 function modal() {
 
     const modalOverlay = document.querySelector('.modal__overlay');
@@ -24,7 +10,6 @@ function modal() {
     const authorizationButton = document.querySelector('#header__authorization');
     let closeModalButtons = document.querySelectorAll('.modal__close');
     closeModalButtons = Array.prototype.slice.call(closeModalButtons);
-    const modalButton = document.querySelector('.modal__button');
     const modalStatus = document.querySelector('#modal__status');
 
     registrationButton.addEventListener('click', () => {
@@ -55,6 +40,20 @@ function modal() {
                     closeModal(modalStatus, modalOverlay);
         }
     });
+
+    function closeModal(modal, modalOverlay) {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        modalOverlay.classList.add('hide');
+        modalOverlay.classList.remove('show');
+    }
+    
+    function openModal(modal, modalOverlay) {
+        modal.classList.remove('hide');
+        modal.classList.add('show');
+        modalOverlay.classList.remove('hide');
+        modalOverlay.classList.add('show');
+    }
 }
 
 export default modal;

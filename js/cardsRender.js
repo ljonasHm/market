@@ -20,13 +20,13 @@ function calcParent() {
     }
 }
 
-function cardsRender(category) {
+function cardsRender(category, cardSliderSettings) {
     document.querySelector('.products__list').innerHTML = '';
     getResource('http://localhost:3000/products').
     then(data => {
         data.forEach((card) => {
             if (card.categories.includes(category) || category === 'all') {
-                new ProductCard(card.name, card.img, card.price, card.categories, card.characteristics).render(calcParent());
+                new ProductCard(card.name, card.images, card.price, card.categories, card.characteristics, cardSliderSettings).render(calcParent());
             }
         })
     });

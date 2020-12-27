@@ -1,12 +1,14 @@
 import slider from './slider';
 
 class ProductCard {
-    constructor(name, img, price, categories, characteristics) {
+    constructor(name, images, price, categories, characteristics, cardSliderSettings) {
         this.name = name;
-        this.img = img;
+        this.mainImage = images[0];
+        this.images = images;
         this.price = price;
         this.categories = categories;
         this.characteristics = characteristics;
+        this.cardSliderSettings = cardSliderSettings;
     }
 
     renderCharacteristics() {
@@ -38,7 +40,7 @@ class ProductCard {
         this.renderCharacteristics();
         sliderString.innerHTML = '';
         sliderString.style.transform = 'translateX(0)';
-        slider(this.img);
+        slider(this.cardSliderSettings, this.images);
     }
 
     render(parent) {
@@ -49,7 +51,7 @@ class ProductCard {
             <p class="card__name">${this.name}</p>
             <div class="card__price"><p>${this.price} руб</p></div>
         `;
-        element.querySelector('.card__img').style.backgroundImage = `url(${this.img[0]})`;
+        element.querySelector('.card__img').style.backgroundImage = `url(${this.mainImage})`;
         parent.append(element);
         this.element = element;
         element.addEventListener('click', () => {
