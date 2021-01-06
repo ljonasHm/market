@@ -6,8 +6,10 @@ function modal() {
     const modalRegistration = document.querySelector('#modal__registration');
     const modalAuthorization = document.querySelector('#modal__authorization');
     const modalCard = document.querySelector('.modal__card');
+    const modalBasket = document.querySelector('.modal__basket');
     const registrationButton = document.querySelector('#header__registration');
     const authorizationButton = document.querySelector('#header__authorization');
+    const basketButton = document.querySelector('#header__basket-button');
     let closeModalButtons = document.querySelectorAll('.modal__close');
     closeModalButtons = Array.prototype.slice.call(closeModalButtons);
     const modalStatus = document.querySelector('#modal__status');
@@ -19,6 +21,10 @@ function modal() {
     authorizationButton.addEventListener('click', () => {
         openModal(modalAuthorization, modalOverlay);
     });
+
+    basketButton.addEventListener('click', () => {
+        openModal(modalBasket, modalOverlay);
+    })
 
     modalOverlay.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -38,6 +44,10 @@ function modal() {
             || closeModalButtons.includes(event.target))
                 && modalStatus.classList.contains('show')) {
                     closeModal(modalStatus, modalOverlay);
+        } else if ((event.target === modalOverlay
+            || closeModalButtons.includes(event.target))
+                && modalBasket.classList.contains('show')) {
+                    closeModal(modalBasket, modalOverlay);
         }
     });
 

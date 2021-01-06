@@ -317,8 +317,10 @@ function modal() {
     const modalRegistration = document.querySelector('#modal__registration');
     const modalAuthorization = document.querySelector('#modal__authorization');
     const modalCard = document.querySelector('.modal__card');
+    const modalBasket = document.querySelector('.modal__basket');
     const registrationButton = document.querySelector('#header__registration');
     const authorizationButton = document.querySelector('#header__authorization');
+    const basketButton = document.querySelector('#header__basket-button');
     let closeModalButtons = document.querySelectorAll('.modal__close');
     closeModalButtons = Array.prototype.slice.call(closeModalButtons);
     const modalStatus = document.querySelector('#modal__status');
@@ -330,6 +332,10 @@ function modal() {
     authorizationButton.addEventListener('click', () => {
         openModal(modalAuthorization, modalOverlay);
     });
+
+    basketButton.addEventListener('click', () => {
+        openModal(modalBasket, modalOverlay);
+    })
 
     modalOverlay.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -349,6 +355,10 @@ function modal() {
             || closeModalButtons.includes(event.target))
                 && modalStatus.classList.contains('show')) {
                     closeModal(modalStatus, modalOverlay);
+        } else if ((event.target === modalOverlay
+            || closeModalButtons.includes(event.target))
+                && modalBasket.classList.contains('show')) {
+                    closeModal(modalBasket, modalOverlay);
         }
     });
 
@@ -526,9 +536,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const cardSliderSettings = {
-    sliderStringClassName: '.modal__slider-string',
-    sliderButtonLeftId: '#modal__slider-arrow-left',
-    sliderButtonRightId: '#modal__slider-arrow-right',
+    sliderStringSelector: '.modal__slider-string',
+    sliderButtonLeftSelector: '#modal__slider-arrow-left',
+    sliderButtonRightSelector: '#modal__slider-arrow-right',
     imageWrapperClassName: 'modal__card-image-block',
     imageDivClassName: 'modal__card-image',
     buttonsAnimation: true,
@@ -558,9 +568,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function slider(settings, images) {
     
-    const sliderString = document.querySelector(settings.sliderStringClassName);
-    const sliderButtonLeft = document.querySelector(settings.sliderButtonLeftId);
-    const sliderButtonRight = document.querySelector(settings.sliderButtonRightId);
+    const sliderString = document.querySelector(settings.sliderStringSelector);
+    const sliderButtonLeft = document.querySelector(settings.sliderButtonLeftSelector);
+    const sliderButtonRight = document.querySelector(settings.sliderButtonRightSelector);
     let slidePlace = 0;
 
     sliderString.style.width = images.length * settings.widthOfImgWrapper + 'px';

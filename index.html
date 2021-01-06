@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/reset.css">
-        <link rel="stylesheet" href="styles/style.css?v=0.018">
-        <script src="js/bundle.js?v=0.021" defer></script>
+        <link rel="stylesheet" href="styles/style.css?v=0.021">
+        <script src="js/bundle.js?v=0.022" defer></script>
         <title>Market</title>
     </head>
     <body>
@@ -24,7 +24,7 @@
                     <button class="header__button" id="header__registration">Регистрация</button>
                     <button class="header__button" id="header__authorization">Авторизация</button>
                     <button class="header__button hide" id="header__login-button">Логин</button>
-                    <button class="header__button hide" id="header__backet-button">Корзина</button>
+                    <button class="header__button hide" id="header__basket-button">Корзина</button>
                 </div>
             </header>
             <div class="products">
@@ -89,6 +89,25 @@
             <div class="modal__window hide" id="modal__status"></div>
             <div class="modal__loading hide">
                 <p class="modal__spinner-p"><img class="modal__spinner" src="img/spinner.gif" alt="loading"></p>
+            </div>
+            <div class="modal__window modal__basket hide">
+                <p class="modal__close">✖</p>
+                <h1>Корзина</h1>
+                <div class="basket__list">
+                    <div class="basket__element">
+                        <p class="basket__element-delete">Удалить</p>
+                        <p class="basket__element-price">10000 руб</p>
+                        <div class="basket__element-image"></div>
+                        <p class="basket__element-name">Название товара</p>
+                    </div>
+                    <div class="basket__element">
+                        <p class="basket__element-delete">Удалить</p>
+                        <p class="basket__element-price">1000 руб</p>
+                        <div class="basket__element-image"></div>
+                        <p class="basket__element-name">Название еще одного товара</p>
+                    </div>
+                </div>
+                <button class="basket__payment">Перейти к оплате</button>
             </div>
         </div>
     </body>
