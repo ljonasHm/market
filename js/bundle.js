@@ -13,6 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ProductCard": () => /* binding */ ProductCard
 /* harmony export */ });
 /* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./js/slider.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
+
 
 
 class ProductCard {
@@ -58,15 +60,37 @@ class ProductCard {
         (0,_slider__WEBPACK_IMPORTED_MODULE_0__.default)(this.cardSliderSettings, this.images);
     }
 
+    putInTheCart() {
+        const basketList = document.querySelector('.basket__list');
+        const basketElement = document.createElement('div');
+        basketElement.classList.add('basket__element');
+        basketElement.innerHTML = `
+            <p class="basket__element-delete">Удалить</p>
+            <p class="basket__element-price">${this.price} руб</p>
+            <div class="basket__element-image"></div>
+            <p class="basket__element-name">${this.name}</p>
+        `;
+        basketElement.querySelector('.basket__element-image').style.backgroundImage = `url(${this.mainImage})`;
+        basketList.append(basketElement);
+    }
+
     render(parent) {
         let element = document.createElement('div');
         element.classList.add('products__card');
         element.innerHTML = `
             <div class="card__img"></div>
             <p class="card__name">${this.name}</p>
-            <div class="card__price"><p>${this.price} руб</p></div>
+            <div class="card__price">
+                <button class="price__basket-button">В корзину</button>
+                <p>${this.price} руб</p>
+            </div>
         `;
         element.querySelector('.card__img').style.backgroundImage = `url(${this.mainImage})`;
+        element.querySelector('.price__basket-button').addEventListener('click', (event) => {
+            event.stopPropagation();
+            this.putInTheCart();
+            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Товар добавлен в корзину');
+        });
         parent.append(element);
         this.element = element;
         element.addEventListener('click', () => {
@@ -92,6 +116,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request */ "./js/request.js");
 /* harmony import */ var _card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./card */ "./js/card.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
+
 
 
 
@@ -167,8 +193,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request */ "./js/request.js");
-/* harmony import */ var _changeUser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./changeUser */ "./js/changeUser.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
+/* harmony import */ var _changeUser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./changeUser */ "./js/changeUser.js");
 // import FormData from 'form-data';
+
+
 
 
 
@@ -180,16 +209,13 @@ function form() {
     const authorizationForm = document.querySelector('.modal__authorization-form');
     const registrationWindow = document.querySelector('#modal__registration');
     const authorizationWindow = document.querySelector('#modal__authorization');
-    const statusWindow = document.querySelector('#modal__status');
-    const loadingWindow = document.querySelector('.modal__loading');
 
     registrationForm.addEventListener('submit', (event) => {
 
         event.preventDefault();
         registrationWindow.classList.add('hide');
         registrationWindow.classList.remove('show');
-        loadingWindow.classList.remove('hide');
-        loadingWindow.classList.add('show');
+        (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
 
         const registrationData = new FormData(registrationForm);
         const jsonData = JSON.stringify(Object.fromEntries(registrationData.entries()));
@@ -199,30 +225,36 @@ function form() {
             if (data.some((serverDataElement) => {
                 return ((serverDataElement.mail == JSON.parse(jsonData).mail && serverDataElement.login == JSON.parse(jsonData).login) ? true : false);
             })) {
-                showStatusModal('Такой почтовый адрес и логин уже зарегестрированы');
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Такой почтовый адрес и логин уже зарегестрированы');
             } else if (data.some((serverDataElement) => {
                 return ((serverDataElement.mail == JSON.parse(jsonData).mail) ? true : false);
             })) {
-                showStatusModal('Такой почтовый адрес уже зарегестрирован');
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Такой почтовый адрес уже зарегестрирован');
             } else if (data.some((serverDataElement) => {
                 return ((serverDataElement.login == JSON.parse(jsonData).login) ? true : false);
             })) {
-                showStatusModal('Такой логин уже существует');
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Такой логин уже существует');
             } else {
                 (0,_request__WEBPACK_IMPORTED_MODULE_0__.postResource)('http://localhost:3000/users', jsonData)
                 .then(() => {
-                    showStatusModal('Регистрация прошла успешно');
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Регистрация прошла успешно');
                     registrationForm.reset();
                     localStorage.setItem('user', JSON.parse(jsonData).login);
-                    (0,_changeUser__WEBPACK_IMPORTED_MODULE_1__.default)(JSON.parse(jsonData).login);
+                    (0,_changeUser__WEBPACK_IMPORTED_MODULE_2__.default)(JSON.parse(jsonData).login);
                 })
                 .catch(() => {
-                    showStatusModal('Произошла ошибка при загрузке данных на сервер');
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при загрузке данных на сервер');
                 });
             }
         })
         .catch(() => {
-            showStatusModal('Произошла ошибка при запросе с сервера');
+            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
+            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при запросе с сервера');
         })
     })
 
@@ -232,8 +264,7 @@ function form() {
 
         authorizationWindow.classList.add('hide');
         authorizationWindow.classList.remove('show');
-        loadingWindow.classList.remove('hide');
-        loadingWindow.classList.add('show');
+        (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
 
         const authorizationData = new FormData(authorizationForm);
         const jsonData = JSON.stringify(Object.fromEntries(authorizationData.entries()));
@@ -247,26 +278,21 @@ function form() {
                     return false;
                 }
             })) {
-                    showStatusModal('Вы успешно авторизованы');
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Вы успешно авторизованы');
                     authorizationForm.reset;
                     localStorage.setItem('user', JSON.parse(jsonData).login);
-                    (0,_changeUser__WEBPACK_IMPORTED_MODULE_1__.default)(JSON.parse(jsonData).login);
+                    (0,_changeUser__WEBPACK_IMPORTED_MODULE_2__.default)(JSON.parse(jsonData).login);
                 } else {
-                    showStatusModal('Введены неверный логин и/или пароль');
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Введены неверный логин и/или пароль');
             }
         })
         .catch(() => {
-            showStatusModal('Произошла ошибка при запросе с сервера');
+            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
+            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при запросе с сервера');
         })
     })
-
-    function showStatusModal(message) {
-        loadingWindow.classList.remove('show');
-        loadingWindow.classList.add('hide');
-        statusWindow.classList.remove('hide');
-        statusWindow.classList.add('show');
-        statusWindow.innerHTML = `<p class="modal__status-p">${message}</p>`;
-    }
 
 }
 
@@ -307,12 +333,17 @@ function login() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__,
+/* harmony export */   "showStatusModal": () => /* binding */ showStatusModal,
+/* harmony export */   "toggleLoadingWindow": () => /* binding */ toggleLoadingWindow
 /* harmony export */ });
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 'use script';
 
-function modal() {
 
+
+function modal() {
     const modalOverlay = document.querySelector('.modal__overlay');
     const modalRegistration = document.querySelector('#modal__registration');
     const modalAuthorization = document.querySelector('#modal__authorization');
@@ -377,7 +408,30 @@ function modal() {
     }
 }
 
+function showStatusModal(message) {
+    const statusWindow = document.querySelector('#modal__status');
+    const overlay = document.querySelector('.modal__overlay');
+
+    if (overlay.classList.contains('hide')) {
+        overlay.classList.remove('hide');
+        overlay.classList.add('show');
+    }
+    
+    statusWindow.classList.remove('hide');
+    statusWindow.classList.add('show');
+    statusWindow.innerHTML = `<p class="modal__status-p">${message}</p>`;
+}
+
+function toggleLoadingWindow() {
+    const loadingWindow = document.querySelector('.modal__loading');
+
+    loadingWindow.classList.toggle('hide');
+    loadingWindow.classList.toggle('show');
+}
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
+
+
 
 /***/ }),
 

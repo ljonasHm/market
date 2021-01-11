@@ -1,4 +1,5 @@
 import slider from './slider';
+import {showStatusModal} from './modal';
 
 class ProductCard {
     constructor(name, images, price, categories, characteristics, cardSliderSettings) {
@@ -43,15 +44,37 @@ class ProductCard {
         slider(this.cardSliderSettings, this.images);
     }
 
+    putInTheCart() {
+        const basketList = document.querySelector('.basket__list');
+        const basketElement = document.createElement('div');
+        basketElement.classList.add('basket__element');
+        basketElement.innerHTML = `
+            <p class="basket__element-delete">Удалить</p>
+            <p class="basket__element-price">${this.price} руб</p>
+            <div class="basket__element-image"></div>
+            <p class="basket__element-name">${this.name}</p>
+        `;
+        basketElement.querySelector('.basket__element-image').style.backgroundImage = `url(${this.mainImage})`;
+        basketList.append(basketElement);
+    }
+
     render(parent) {
         let element = document.createElement('div');
         element.classList.add('products__card');
         element.innerHTML = `
             <div class="card__img"></div>
             <p class="card__name">${this.name}</p>
-            <div class="card__price"><p>${this.price} руб</p></div>
+            <div class="card__price">
+                <button class="price__basket-button">В корзину</button>
+                <p>${this.price} руб</p>
+            </div>
         `;
         element.querySelector('.card__img').style.backgroundImage = `url(${this.mainImage})`;
+        element.querySelector('.price__basket-button').addEventListener('click', (event) => {
+            event.stopPropagation();
+            this.putInTheCart();
+            showStatusModal('Товар добавлен в корзину');
+        });
         parent.append(element);
         this.element = element;
         element.addEventListener('click', () => {

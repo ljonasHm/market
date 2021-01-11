@@ -1,7 +1,8 @@
 'use script';
 
-function modal() {
+import { over } from "lodash";
 
+function modal() {
     const modalOverlay = document.querySelector('.modal__overlay');
     const modalRegistration = document.querySelector('#modal__registration');
     const modalAuthorization = document.querySelector('#modal__authorization');
@@ -66,4 +67,27 @@ function modal() {
     }
 }
 
+function showStatusModal(message) {
+    const statusWindow = document.querySelector('#modal__status');
+    const overlay = document.querySelector('.modal__overlay');
+
+    if (overlay.classList.contains('hide')) {
+        overlay.classList.remove('hide');
+        overlay.classList.add('show');
+    }
+    
+    statusWindow.classList.remove('hide');
+    statusWindow.classList.add('show');
+    statusWindow.innerHTML = `<p class="modal__status-p">${message}</p>`;
+}
+
+function toggleLoadingWindow() {
+    const loadingWindow = document.querySelector('.modal__loading');
+
+    loadingWindow.classList.toggle('hide');
+    loadingWindow.classList.toggle('show');
+}
+
 export default modal;
+export {showStatusModal};
+export {toggleLoadingWindow};

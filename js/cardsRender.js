@@ -1,5 +1,6 @@
 import {getResource} from './request';
 import {ProductCard} from './card';
+import {showStatusModal} from './modal';
 
 function calcParent() {
     const productStrings = document.querySelectorAll('.products__string');
