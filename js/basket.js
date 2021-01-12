@@ -2,10 +2,17 @@
 
 function basket() {
     const basketWindow = document.querySelector('.modal__basket');
+    const basketSum = document.querySelector('.basket__payment-sum');
 
     basketWindow.addEventListener('click', (event) => {
         if (event.target.classList.contains('basket__element-delete')) {
-            event.target.parentElement.remove();
+            const parent = event.target.parentElement;
+            console.log(basketSum.innerHTML.replace(/\D/g, ''));
+            basketSum.innerHTML = `Сумма к оплате: ${+basketSum.innerHTML.replace(/\D/g, '') - +parent.querySelector('.basket__element-price').innerHTML.replace(/\D/g, '')} руб`;
+            parent.remove();
+            if (basketSum.innerHTML == 'Сумма к оплате: 0 руб') {
+                basketSum.classList.add('hide');
+            }
         }
     });
 }

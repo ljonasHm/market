@@ -400,11 +400,18 @@ ul {
     border-radius: 5px;
     font-size: 20px;
     color: white;
-    margin: 30px auto;
 }
 
 .basket__payment-div {
+    margin-top: 30px;
+    padding: 0 10%;
     width: 100%;
+    height: 40px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+}
+
+.basket__payment-sum {
+    margin: auto 0;
+    font-size: 24px;
 }

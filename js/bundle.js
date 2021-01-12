@@ -16,10 +16,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function basket() {
     const basketWindow = document.querySelector('.modal__basket');
+    const basketSum = document.querySelector('.basket__payment-sum');
 
     basketWindow.addEventListener('click', (event) => {
         if (event.target.classList.contains('basket__element-delete')) {
-            event.target.parentElement.remove();
+            const parent = event.target.parentElement;
+            console.log(basketSum.innerHTML.replace(/\D/g, ''));
+            basketSum.innerHTML = `Сумма к оплате: ${+basketSum.innerHTML.replace(/\D/g, '') - +parent.querySelector('.basket__element-price').innerHTML.replace(/\D/g, '')} руб`;
+            parent.remove();
+            if (basketSum.innerHTML == 'Сумма к оплате: 0 руб') {
+                basketSum.classList.add('hide');
+            }
         }
     });
 }
@@ -90,15 +97,23 @@ class ProductCard {
     putInTheCart() {
         const basketList = document.querySelector('.basket__list');
         const basketElement = document.createElement('div');
+        const basketSum = document.querySelector('.basket__payment-sum');
+
         basketElement.classList.add('basket__element');
         basketElement.innerHTML = `
-            <div class="basket__element-delete"><p>Удалить</p></div>
+            <div class="basket__element-delete">Удалить</div>
             <p class="basket__element-price">${this.price} руб</p>
             <div class="basket__element-image"></div>
             <p class="basket__element-name">${this.name}</p>
         `;
         basketElement.querySelector('.basket__element-image').style.backgroundImage = `url(${this.mainImage})`;
         basketList.append(basketElement);
+        if (basketSum.classList.contains('hide')) {
+            basketSum.classList.remove('hide');
+            basketSum.innerHTML = `Сумма к оплате: ${+this.price.replace(/\D/, '')} руб`;
+        } else {
+            basketSum.innerHTML = `Сумма к оплате: ${+basketSum.innerHTML.replace(/\D/g, '') + +this.price.replace(/\D/, '')} руб`;
+        }
     }
 
     render(parent) {
