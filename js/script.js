@@ -3,6 +3,7 @@ import cardsRender from './cardsRender';
 import modal from './modal';
 import form from './form';
 import login from './login';
+import {basket} from './basket';
 
 const cardSliderSettings = {
     sliderStringSelector: '.modal__slider-string',
@@ -19,3 +20,4 @@ cardsRender('all', cardSliderSettings);
 modal();
 form();
 login();
+basket();

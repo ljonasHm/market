@@ -375,9 +375,14 @@ ul {
 }
 
 .basket__element-delete {
+    height: 30px;
+    padding: 0 5px;
     color: red;
     font-size: 20px;
     margin: 25px 10px;
+    cursor: pointer;
+    border: 2px solid red;
+    border-radius: 5px;
 }
 
 .basket__element-price {

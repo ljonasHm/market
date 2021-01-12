@@ -49,7 +49,7 @@ class ProductCard {
         const basketElement = document.createElement('div');
         basketElement.classList.add('basket__element');
         basketElement.innerHTML = `
-            <p class="basket__element-delete">Удалить</p>
+            <div class="basket__element-delete"><p>Удалить</p></div>
             <p class="basket__element-price">${this.price} руб</p>
             <div class="basket__element-image"></div>
             <p class="basket__element-name">${this.name}</p>

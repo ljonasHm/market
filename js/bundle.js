@@ -1,6 +1,33 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./js/basket.js":
+/*!**********************!*\
+  !*** ./js/basket.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "basket": () => /* binding */ basket
+/* harmony export */ });
+
+
+function basket() {
+    const basketWindow = document.querySelector('.modal__basket');
+
+    basketWindow.addEventListener('click', (event) => {
+        if (event.target.classList.contains('basket__element-delete')) {
+            event.target.parentElement.remove();
+        }
+    });
+}
+
+
+
+/***/ }),
+
 /***/ "./js/card.js":
 /*!********************!*\
   !*** ./js/card.js ***!
@@ -65,7 +92,7 @@ class ProductCard {
         const basketElement = document.createElement('div');
         basketElement.classList.add('basket__element');
         basketElement.innerHTML = `
-            <p class="basket__element-delete">Удалить</p>
+            <div class="basket__element-delete"><p>Удалить</p></div>
             <p class="basket__element-price">${this.price} руб</p>
             <div class="basket__element-image"></div>
             <p class="basket__element-name">${this.name}</p>
@@ -583,6 +610,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
 /* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./form */ "./js/form.js");
 /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login */ "./js/login.js");
+/* harmony import */ var _basket__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./basket */ "./js/basket.js");
+
 
 
 
@@ -604,6 +633,7 @@ const cardSliderSettings = {
 (0,_modal__WEBPACK_IMPORTED_MODULE_2__.default)();
 (0,_form__WEBPACK_IMPORTED_MODULE_3__.default)();
 (0,_login__WEBPACK_IMPORTED_MODULE_4__.default)();
+(0,_basket__WEBPACK_IMPORTED_MODULE_5__.basket)();
 
 /***/ }),
 
