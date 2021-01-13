@@ -17,6 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 function basket() {
     const basketWindow = document.querySelector('.modal__basket');
     const basketSum = document.querySelector('.basket__payment-sum');
+    const basket__overlay = document.querySelector('.basket__overlay');
 
     basketWindow.addEventListener('click', (event) => {
         if (event.target.classList.contains('basket__element-delete')) {
@@ -26,6 +27,7 @@ function basket() {
             parent.remove();
             if (basketSum.innerHTML == 'Сумма к оплате: 0 руб') {
                 basketSum.classList.add('hide');
+                basket__overlay.classList.remove('hide');
             }
         }
     });
@@ -77,7 +79,7 @@ class ProductCard {
         }
     }
 
-    openCard() {
+    open() {
         const overlay = document.querySelector('.modal__overlay');
         const cardWindow = document.querySelector('.modal__card');
         const sliderString = document.querySelector('.modal__slider-string');
@@ -98,6 +100,7 @@ class ProductCard {
         const basketList = document.querySelector('.basket__list');
         const basketElement = document.createElement('div');
         const basketSum = document.querySelector('.basket__payment-sum');
+        const basket__overlay = document.querySelector('.basket__overlay');
 
         basketElement.classList.add('basket__element');
         basketElement.innerHTML = `
@@ -110,6 +113,7 @@ class ProductCard {
         basketList.append(basketElement);
         if (basketSum.classList.contains('hide')) {
             basketSum.classList.remove('hide');
+            basket__overlay.classList.add('hide');
             basketSum.innerHTML = `Сумма к оплате: ${+this.price.replace(/\D/, '')} руб`;
         } else {
             basketSum.innerHTML = `Сумма к оплате: ${+basketSum.innerHTML.replace(/\D/g, '') + +this.price.replace(/\D/, '')} руб`;
@@ -136,7 +140,7 @@ class ProductCard {
         parent.append(element);
         this.element = element;
         element.addEventListener('click', () => {
-            this.openCard();
+            this.open();
         })
     }
 }

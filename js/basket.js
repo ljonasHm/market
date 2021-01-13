@@ -3,6 +3,7 @@
 function basket() {
     const basketWindow = document.querySelector('.modal__basket');
     const basketSum = document.querySelector('.basket__payment-sum');
+    const basket__overlay = document.querySelector('.basket__overlay');
 
     basketWindow.addEventListener('click', (event) => {
         if (event.target.classList.contains('basket__element-delete')) {
@@ -12,6 +13,7 @@ function basket() {
             parent.remove();
             if (basketSum.innerHTML == 'Сумма к оплате: 0 руб') {
                 basketSum.classList.add('hide');
+                basket__overlay.classList.remove('hide');
             }
         }
     });

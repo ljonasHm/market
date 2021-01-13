@@ -342,6 +342,17 @@ ul {
     min-width: 720px;
 }
 
+.basket__overlay {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+.basket__overlay-h1 {
+    line-height: 450px;
+}
+
 .basket__list {
     height: 80%;
     width: 90%;

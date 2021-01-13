@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/reset.css">
-        <link rel="stylesheet" href="styles/style.css?v=0.028">
-        <script src="js/bundle.js?v=0.027" defer></script>
+        <link rel="stylesheet" href="styles/style.css?v=0.030">
+        <script src="js/bundle.js?v=0.028" defer></script>
         <title>Market</title>
     </head>
     <body>
@@ -93,7 +93,11 @@
             <div class="modal__window modal__basket hide">
                 <p class="modal__close">✖</p>
                 <h1>Корзина</h1>
-                <div class="basket__list"></div>
+                <div class="basket__list">
+                    <div class="basket__overlay">
+                        <h1 class="basket__overlay-h1">Корзина пуста</h1>
+                    </div>
+                </div>
                 <div class="basket__payment-div">
                     <p class="basket__payment-sum hide"></p>
                     <button class="basket__payment">Перейти к оплате</button>
