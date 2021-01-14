@@ -1,6 +1,5 @@
 import {getResource} from './request';
 import {ProductCard} from './card';
-import {showStatusModal} from './modal';
 
 function calcParent() {
     const productStrings = document.querySelectorAll('.products__string');
@@ -21,12 +20,14 @@ function calcParent() {
     }
 }
 
-function cardsRender(category, cardSliderSettings) {
+function cardsRender(category, cardSliderSettings, searchInput) {
     document.querySelector('.products__list').innerHTML = '';
     getResource('http://localhost:3000/products').
     then(data => {
         data.forEach((card) => {
-            if (card.categories.includes(category) || category === 'all') {
+            if (card.categories.includes(category) || category === 'all' && !searchInput) {
+                new ProductCard(card.name, card.images, card.price, card.categories, card.characteristics, cardSliderSettings).render(calcParent());
+            } else if (searchInput != undefined && card.name.toLowerCase().indexOf(searchInput.toLowerCase()) != -1) {
                 new ProductCard(card.name, card.images, card.price, card.categories, card.characteristics, cardSliderSettings).render(calcParent());
             }
         })

@@ -162,8 +162,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request */ "./js/request.js");
 /* harmony import */ var _card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./card */ "./js/card.js");
-/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
-
 
 
 
@@ -186,12 +184,14 @@ function calcParent() {
     }
 }
 
-function cardsRender(category, cardSliderSettings) {
+function cardsRender(category, cardSliderSettings, searchInput) {
     document.querySelector('.products__list').innerHTML = '';
     (0,_request__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/products').
     then(data => {
         data.forEach((card) => {
-            if (card.categories.includes(category) || category === 'all') {
+            if (card.categories.includes(category) || category === 'all' && !searchInput) {
+                new _card__WEBPACK_IMPORTED_MODULE_1__.ProductCard(card.name, card.images, card.price, card.categories, card.characteristics, cardSliderSettings).render(calcParent());
+            } else if (searchInput != undefined && card.name.toLowerCase().indexOf(searchInput.toLowerCase()) != -1) {
                 new _card__WEBPACK_IMPORTED_MODULE_1__.ProductCard(card.name, card.images, card.price, card.categories, card.characteristics, cardSliderSettings).render(calcParent());
             }
         })
@@ -490,7 +490,8 @@ function toggleLoadingWindow() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "openUpList": () => /* binding */ openUpList,
+/* harmony export */   "removeAllUnderlines": () => /* binding */ removeAllUnderlines
 /* harmony export */ });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
@@ -514,12 +515,15 @@ function removeAllUnderlines() {
     })
 }
 
-function openCategory(ul) {
+function openCategory(ul, cardSliderSettings) {
+    const searchInput = document.querySelector('.header__search--input');
+    
     if (!ul.children[0].children[0].classList.contains('open-ul')) {
         toggleMarker(ul);
     }
     if(ul.dataset.category) {
-        (0,_cardsRender__WEBPACK_IMPORTED_MODULE_1__.default)(ul.dataset.category);
+        searchInput.value = '';
+        (0,_cardsRender__WEBPACK_IMPORTED_MODULE_1__.default)(ul.dataset.category, cardSliderSettings);
     }
     removeAllUnderlines();
     ul.children[0].classList.toggle('underline');
@@ -535,17 +539,19 @@ function toggleMarker(ul) {
     });
 }
 
-function openUpList() {
+function openUpList(cardSliderSettings) {
     const allLi = document.querySelectorAll('li');
     const allUl = document.querySelectorAll('ul');
     const allMarkers = document.querySelectorAll('.products__marker');
+    const searchInput = document.querySelector('.header__search--input');
 
     allLi.forEach(li => {
         li.classList.add('hide');
         li.addEventListener('click', event => {
             event.stopPropagation();
             if(li.dataset.category) {
-                (0,_cardsRender__WEBPACK_IMPORTED_MODULE_1__.default)(li.dataset.category);
+                searchInput.value = '';
+                (0,_cardsRender__WEBPACK_IMPORTED_MODULE_1__.default)(li.dataset.category, cardSliderSettings);
             }
             removeAllUnderlines();
             li.classList.toggle('underline');
@@ -555,7 +561,7 @@ function openUpList() {
     allUl.forEach(ul => {
         ul.addEventListener('click', event => {
             event.stopPropagation();
-            openCategory(ul);
+            openCategory(ul, cardSliderSettings);
         });
     });
 
@@ -567,7 +573,8 @@ function openUpList() {
     })
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (openUpList);
+
+
 
 /***/ }),
 
@@ -630,6 +637,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./form */ "./js/form.js");
 /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login */ "./js/login.js");
 /* harmony import */ var _basket__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./basket */ "./js/basket.js");
+/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./search */ "./js/search.js");
+
 
 
 
@@ -647,12 +656,41 @@ const cardSliderSettings = {
     widthOfImgWrapper: 500
 }
 
-;(0,_openUpList__WEBPACK_IMPORTED_MODULE_0__.default)();
+;(0,_openUpList__WEBPACK_IMPORTED_MODULE_0__.openUpList)(cardSliderSettings);
 (0,_cardsRender__WEBPACK_IMPORTED_MODULE_1__.default)('all', cardSliderSettings);
 (0,_modal__WEBPACK_IMPORTED_MODULE_2__.default)();
 (0,_form__WEBPACK_IMPORTED_MODULE_3__.default)();
 (0,_login__WEBPACK_IMPORTED_MODULE_4__.default)();
 (0,_basket__WEBPACK_IMPORTED_MODULE_5__.basket)();
+(0,_search__WEBPACK_IMPORTED_MODULE_6__.search)(cardSliderSettings);
+
+/***/ }),
+
+/***/ "./js/search.js":
+/*!**********************!*\
+  !*** ./js/search.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "search": () => /* binding */ search
+/* harmony export */ });
+/* harmony import */ var _cardsRender__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cardsRender */ "./js/cardsRender.js");
+/* harmony import */ var _openUpList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./openUpList */ "./js/openUpList.js");
+
+
+
+function search(cardSliderSettings) {
+    const searchInput = document.querySelector('.header__search--input');
+    searchInput.addEventListener('input', () => {
+        (0,_openUpList__WEBPACK_IMPORTED_MODULE_1__.removeAllUnderlines)();
+        (0,_cardsRender__WEBPACK_IMPORTED_MODULE_0__.default)('', cardSliderSettings, searchInput.value);
+    });
+}
+
+
 
 /***/ }),
 

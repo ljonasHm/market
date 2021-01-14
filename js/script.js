@@ -1,9 +1,10 @@
-import openUpList from './openUpList';
+import {openUpList} from './openUpList';
 import cardsRender from './cardsRender';
 import modal from './modal';
 import form from './form';
 import login from './login';
 import {basket} from './basket';
+import {search} from './search';
 
 const cardSliderSettings = {
     sliderStringSelector: '.modal__slider-string',
@@ -15,9 +16,10 @@ const cardSliderSettings = {
     widthOfImgWrapper: 500
 }
 
-openUpList();
+openUpList(cardSliderSettings);
 cardsRender('all', cardSliderSettings);
 modal();
 form();
 login();
 basket();
+search(cardSliderSettings);

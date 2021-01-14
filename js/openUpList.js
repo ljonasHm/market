@@ -17,12 +17,15 @@ function removeAllUnderlines() {
     })
 }
 
-function openCategory(ul) {
+function openCategory(ul, cardSliderSettings) {
+    const searchInput = document.querySelector('.header__search--input');
+    
     if (!ul.children[0].children[0].classList.contains('open-ul')) {
         toggleMarker(ul);
     }
     if(ul.dataset.category) {
-        cardsRender(ul.dataset.category);
+        searchInput.value = '';
+        cardsRender(ul.dataset.category, cardSliderSettings);
     }
     removeAllUnderlines();
     ul.children[0].classList.toggle('underline');
@@ -38,17 +41,19 @@ function toggleMarker(ul) {
     });
 }
 
-function openUpList() {
+function openUpList(cardSliderSettings) {
     const allLi = document.querySelectorAll('li');
     const allUl = document.querySelectorAll('ul');
     const allMarkers = document.querySelectorAll('.products__marker');
+    const searchInput = document.querySelector('.header__search--input');
 
     allLi.forEach(li => {
         li.classList.add('hide');
         li.addEventListener('click', event => {
             event.stopPropagation();
             if(li.dataset.category) {
-                cardsRender(li.dataset.category);
+                searchInput.value = '';
+                cardsRender(li.dataset.category, cardSliderSettings);
             }
             removeAllUnderlines();
             li.classList.toggle('underline');
@@ -58,7 +63,7 @@ function openUpList() {
     allUl.forEach(ul => {
         ul.addEventListener('click', event => {
             event.stopPropagation();
-            openCategory(ul);
+            openCategory(ul, cardSliderSettings);
         });
     });
 
@@ -70,4 +75,5 @@ function openUpList() {
     })
 }
 
-export default openUpList;
+export {openUpList};
+export {removeAllUnderlines};
