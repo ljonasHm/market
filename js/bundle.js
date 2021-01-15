@@ -218,7 +218,9 @@ function changeUser(userLogin) {
     const loginButton = document.querySelector('#header__login-button');
 
     buttonsHeader.forEach((button) => {
-        button.classList.toggle('hide');
+        if (button.id != 'header__login-logout') {
+            button.classList.toggle('hide');
+        }
     });
     loginButton.innerHTML = userLogin;
 }
@@ -360,10 +362,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _changeUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./changeUser */ "./js/changeUser.js");
 
 
+function toggleAdditionalButtons() {
+    const loginButton = document.querySelector('#header__login-button');
+    const loginButtonsList = document.querySelector('.header__login-buttons-list');
+    const listButtons = loginButtonsList.querySelectorAll('.header__button');
+
+    listButtons.forEach(button => {
+        if (button != loginButton) {
+            button.classList.toggle('hide');
+        }
+    });
+}
+
 function login() {
+    const loginButton = document.querySelector('#header__login-button');
+    const logOutButton = document.querySelector('#header__login-logout');
+
     if (localStorage.getItem('user')) {
         (0,_changeUser__WEBPACK_IMPORTED_MODULE_0__.default)(localStorage.getItem('user'));
     }
+    
+    loginButton.addEventListener('click', () => {
+        toggleAdditionalButtons();
+    });
+
+    logOutButton.addEventListener('click', () => {
+        (0,_changeUser__WEBPACK_IMPORTED_MODULE_0__.default)('');
+        localStorage.removeItem('user');
+        toggleAdditionalButtons();
+    })
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (login);
@@ -540,8 +567,9 @@ function toggleMarker(ul) {
 }
 
 function openUpList(cardSliderSettings) {
-    const allLi = document.querySelectorAll('li');
-    const allUl = document.querySelectorAll('ul');
+    const openUpListDiv = document.querySelector('.products__categories');
+    const allLi = openUpListDiv.querySelectorAll('li');
+    const allUl = openUpListDiv.querySelectorAll('ul');
     const allMarkers = document.querySelectorAll('.products__marker');
     const searchInput = document.querySelector('.header__search--input');
 

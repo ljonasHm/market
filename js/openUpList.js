@@ -42,8 +42,9 @@ function toggleMarker(ul) {
 }
 
 function openUpList(cardSliderSettings) {
-    const allLi = document.querySelectorAll('li');
-    const allUl = document.querySelectorAll('ul');
+    const openUpListDiv = document.querySelector('.products__categories');
+    const allLi = openUpListDiv.querySelectorAll('li');
+    const allUl = openUpListDiv.querySelectorAll('ul');
     const allMarkers = document.querySelectorAll('.products__marker');
     const searchInput = document.querySelector('.header__search--input');
 

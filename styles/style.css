@@ -58,6 +58,7 @@ header {
 }
 
 .header__registration {
+    display: flex;
     width: 15%;
     margin-left: 4%;
 }
@@ -70,6 +71,18 @@ header {
     background-color: rgba(0, 0, 0, 0);
     color: white;
     border-color: white;
+}
+
+#header__login-logout {
+    position: relative;
+    margin-top: 0;
+    color: white;
+    background-color:  rgb(27, 60, 168);
+    z-index: 3;
+}
+
+.header__login-buttons-list {
+    width: 100px;
 }
 
 .products {
@@ -149,6 +162,7 @@ ul {
     width: 23%;
     margin: 0 1%;
     border: 1px solid rgb(0, 153, 255);
+    z-index: 0;
 }
 
 .card__img {

@@ -3,7 +3,9 @@ function changeUser(userLogin) {
     const loginButton = document.querySelector('#header__login-button');
 
     buttonsHeader.forEach((button) => {
-        button.classList.toggle('hide');
+        if (button.id != 'header__login-logout') {
+            button.classList.toggle('hide');
+        }
     });
     loginButton.innerHTML = userLogin;
 }
