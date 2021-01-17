@@ -21,7 +21,9 @@ function form() {
         toggleLoadingWindow();
 
         const registrationData = new FormData(registrationForm);
-        const jsonData = JSON.stringify(Object.fromEntries(registrationData.entries()));
+        const objectData = Object.fromEntries(registrationData.entries());
+        objectData.admin = 'false';
+        const jsonData = JSON.stringify(objectData);
 
         getResource('http://localhost:3000/users')
         .then(data => {

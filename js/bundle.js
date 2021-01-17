@@ -266,7 +266,9 @@ function form() {
         (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
 
         const registrationData = new FormData(registrationForm);
-        const jsonData = JSON.stringify(Object.fromEntries(registrationData.entries()));
+        const objectData = Object.fromEntries(registrationData.entries());
+        objectData.admin = 'false';
+        const jsonData = JSON.stringify(objectData);
 
         (0,_request__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/users')
         .then(data => {

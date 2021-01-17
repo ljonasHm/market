@@ -80,25 +80,36 @@
       "mail": "asd",
       "login": "asd",
       "password": "asd",
+      "admin": "false",
       "id": 1
     },
     {
       "mail": "admin",
       "login": "admin",
       "password": "admin",
+      "admin": "true",
       "id": 2
     },
     {
       "mail": "anton",
       "login": "anton",
       "password": "anton",
+      "admin": "false",
       "id": 3
     },
     {
       "mail": "e",
       "login": "e",
       "password": "e",
+      "admin": "false",
       "id": 4
+    },
+    {
+      "mail": "user",
+      "login": "user",
+      "password": "user",
+      "admin": "false",
+      "id": 5
     }
   ]
 }
