@@ -80,36 +80,43 @@
       "mail": "asd",
       "login": "asd",
       "password": "asd",
-      "admin": "false",
+      "admin": true,
       "id": 1
     },
     {
       "mail": "admin",
       "login": "admin",
       "password": "admin",
-      "admin": "true",
+      "admin": true,
       "id": 2
     },
     {
       "mail": "anton",
       "login": "anton",
       "password": "anton",
-      "admin": "false",
+      "admin": false,
       "id": 3
     },
     {
       "mail": "e",
       "login": "e",
       "password": "e",
-      "admin": "false",
+      "admin": false,
       "id": 4
     },
     {
       "mail": "user",
       "login": "user",
       "password": "user",
-      "admin": "false",
+      "admin": false,
       "id": 5
+    },
+    {
+      "mail": "1",
+      "login": "1",
+      "password": "1",
+      "admin": false,
+      "id": 6
     }
   ]
 }

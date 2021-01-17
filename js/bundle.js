@@ -213,6 +213,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request */ "./js/request.js");
+
+
 function changeUser(userLogin) {
     const buttonsHeader = document.querySelectorAll('.header__button');
     const loginButton = document.querySelector('#header__login-button');
@@ -223,6 +226,20 @@ function changeUser(userLogin) {
         }
     });
     loginButton.innerHTML = userLogin;
+    (0,_request__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/users')
+    .then(data => {
+        if(data.find(user => user.admin === true && user.login === userLogin)) {
+            const userButtonList = document.querySelector('.header__login-buttons-list');
+            const controlPanelButton = document.createElement('button');
+
+            controlPanelButton.classList.add('header__button');
+            controlPanelButton.classList.add('header__button-additional');
+            controlPanelButton.classList.add('hide');
+            controlPanelButton.id = 'header__login-controlPanel';
+            controlPanelButton.innerHTML = 'Панель управления';
+            userButtonList.append(controlPanelButton);
+        }
+    })
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (changeUser);
@@ -267,7 +284,7 @@ function form() {
 
         const registrationData = new FormData(registrationForm);
         const objectData = Object.fromEntries(registrationData.entries());
-        objectData.admin = 'false';
+        objectData.admin = false;
         const jsonData = JSON.stringify(objectData);
 
         (0,_request__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/users')
@@ -330,7 +347,7 @@ function form() {
             })) {
                     (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
                     (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Вы успешно авторизованы');
-                    authorizationForm.reset;
+                    authorizationForm.reset();
                     localStorage.setItem('user', JSON.parse(jsonData).login);
                     (0,_changeUser__WEBPACK_IMPORTED_MODULE_2__.default)(JSON.parse(jsonData).login);
                 } else {

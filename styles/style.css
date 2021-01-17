@@ -44,14 +44,6 @@ header {
     border-radius: 5px;
 }
 
-.header__search--button {
-    width: 10%;
-    background-color:rgba(0, 0, 0, 0);
-    border-width: 2px 2px 2px 1px;
-    border-style: outset;
-    border-radius: 0 5px 5px 0;
-}
-
 .header__search--icon {
     height: 60%;
     color: white;
@@ -73,7 +65,7 @@ header {
     border-color: white;
 }
 
-#header__login-logout {
+.header__button-additional {
     position: relative;
     margin-top: 0;
     color: white;

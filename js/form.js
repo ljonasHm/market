@@ -22,7 +22,7 @@ function form() {
 
         const registrationData = new FormData(registrationForm);
         const objectData = Object.fromEntries(registrationData.entries());
-        objectData.admin = 'false';
+        objectData.admin = false;
         const jsonData = JSON.stringify(objectData);
 
         getResource('http://localhost:3000/users')
@@ -85,7 +85,7 @@ function form() {
             })) {
                     toggleLoadingWindow();
                     showStatusModal('Вы успешно авторизованы');
-                    authorizationForm.reset;
+                    authorizationForm.reset();
                     localStorage.setItem('user', JSON.parse(jsonData).login);
                     changeUser(JSON.parse(jsonData).login);
                 } else {
