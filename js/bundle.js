@@ -213,7 +213,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request */ "./js/request.js");
+/* harmony import */ var _controlPanel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controlPanel */ "./js/controlPanel.js");
+/* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./request */ "./js/request.js");
+
 
 
 function changeUser(userLogin) {
@@ -226,7 +228,7 @@ function changeUser(userLogin) {
         }
     });
     loginButton.innerHTML = userLogin;
-    (0,_request__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/users')
+    (0,_request__WEBPACK_IMPORTED_MODULE_1__.getResource)('http://localhost:3000/users')
     .then(data => {
         if(data.find(user => user.admin === true && user.login === userLogin)) {
             const userButtonList = document.querySelector('.header__login-buttons-list');
@@ -238,11 +240,40 @@ function changeUser(userLogin) {
             controlPanelButton.id = 'header__login-controlPanel';
             controlPanelButton.innerHTML = 'Панель управления';
             userButtonList.append(controlPanelButton);
+            controlPanelButton.addEventListener('click', () => {
+                _controlPanel__WEBPACK_IMPORTED_MODULE_0__.controlPanel.render();
+            });
         }
     })
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (changeUser);
+
+/***/ }),
+
+/***/ "./js/controlPanel.js":
+/*!****************************!*\
+  !*** ./js/controlPanel.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "controlPanel": () => /* binding */ controlPanel
+/* harmony export */ });
+const controlPanel = {
+    panelClass: "control-panel",
+
+    render() {
+        const panel = document.createElement('div');
+
+        panel.classList.add(this.panelClass);
+        document.body.append(panel);
+    }
+}
+
+
 
 /***/ }),
 

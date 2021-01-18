@@ -432,3 +432,15 @@ ul {
     margin: auto 0;
     font-size: 24px;
 }
+
+.control-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 400px;
+    width: 600px;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 5px;
+    z-index: 4;
+}
