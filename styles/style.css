@@ -444,3 +444,31 @@ ul {
     border-radius: 5px;
     z-index: 4;
 }
+
+.panel__frame {
+    position: relative;
+    justify-content: right;
+    height: 30px;
+    width: 100%;
+    background-color: rgb(0, 153, 255);
+}
+
+.panel__frame-button {
+    width: 25px;
+    height: 25px;
+    margin: 2px;
+    border-radius: 12px;
+}
+
+.panel__frame-buttons-wrapper {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    right: 5px;
+}
+
+#panel__frame-button-cross {
+    background-image: url(../img/cross.jpg);
+    background-size: 25px 25px;
+    background-position: center;
+}

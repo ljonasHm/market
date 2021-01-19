@@ -23,8 +23,9 @@ function changeUser(userLogin) {
             controlPanelButton.id = 'header__login-controlPanel';
             controlPanelButton.innerHTML = 'Панель управления';
             userButtonList.append(controlPanelButton);
+            controlPanel.render();
             controlPanelButton.addEventListener('click', () => {
-                controlPanel.render();
+                controlPanel.toggleHide();
             });
         }
     })
