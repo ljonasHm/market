@@ -1,3 +1,5 @@
+import { EventEmitter } from "events";
+
 const controlPanel = {
     panelClass: "control-panel",
 
@@ -19,6 +21,22 @@ const controlPanel = {
         crossButton.addEventListener('click', () => {
             this.toggleHide();
         });
+        panel.onmousedown = function(event) {
+
+            moveAt(event.pageX, event.pageY);
+
+            function moveAt(pageX, pageY) {
+                panel.style.left = pageX - panel.offsetWidth / 2 + 'px';
+                panel.style.top = pageY - panel.offsetHeight / 2 + 'px';
+            }
+
+            function panelMove(event) {
+                moveAt(event.pageX, event.pageY);
+            }
+
+            document.addEventListener('mousemove', panelMove);
+
+        };
     },
 
     toggleHide() {
