@@ -220,7 +220,7 @@ function changeUser(userLogin) {
     const loginButton = document.querySelector('#header__login-button');
 
     buttonsHeader.forEach((button) => {
-        if (button.id != 'header__login-logout') {
+        if (button.id != 'header__login-logout' && button.id != 'header__login-controlPanel') {
             button.classList.toggle('hide');
         }
     });
@@ -316,6 +316,10 @@ const controlPanel = {
         const panel = document.querySelector('.' + this.panelClass);
 
         panel.classList.toggle('hide');
+    },
+
+    exit() {
+        console.log('soon');
     }
 }
 
@@ -454,6 +458,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _changeUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./changeUser */ "./js/changeUser.js");
+/* harmony import */ var _controlPanel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controlPanel */ "./js/controlPanel.js");
+
 
 
 function toggleAdditionalButtons() {
@@ -484,7 +490,8 @@ function login() {
         (0,_changeUser__WEBPACK_IMPORTED_MODULE_0__.default)('');
         localStorage.removeItem('user');
         toggleAdditionalButtons();
-    })
+        _controlPanel__WEBPACK_IMPORTED_MODULE_1__.controlPanel.exit();
+    });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (login);
@@ -655,7 +662,7 @@ function openUpList(cardSliderSettings) {
     const openUpListDiv = document.querySelector('.products__categories');
     const allLi = openUpListDiv.querySelectorAll('li');
     const allUl = openUpListDiv.querySelectorAll('ul');
-    const allMarkers = document.querySelectorAll('.products__marker');
+    const allMarkers = openUpListDiv.querySelectorAll('img');
     const searchInput = document.querySelector('.header__search--input');
 
     allLi.forEach(li => {

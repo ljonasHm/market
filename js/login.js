@@ -1,4 +1,5 @@
 import changeUser from './changeUser';
+import {controlPanel} from './controlPanel';
 
 function toggleAdditionalButtons() {
     const loginButton = document.querySelector('#header__login-button');
@@ -28,7 +29,8 @@ function login() {
         changeUser('');
         localStorage.removeItem('user');
         toggleAdditionalButtons();
-    })
+        controlPanel.exit();
+    });
 }
 
 export default login;

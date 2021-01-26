@@ -1,39 +1,29 @@
 body, html {
-    height: 100%;
-    min-height: 900px;
     width: 100%;
     min-width: 1080px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(245, 245, 245)
 }
 
 .main {
-    width: 80%;
-    height: 100%;
+    width: 100%;
+    height: 1000px;
     margin: auto;
 }
 
 header {
-    width: 100%;
-    height: 70px;
+    width: 70%;
+    margin: auto;
+    height: 50px;
     display: flex;
-    background: linear-gradient(to bottom right, rgb(111, 214, 255), rgb(0, 153, 255), rgb(0, 39, 167));
-}
-
-.header__logoplace {
-    height: 100%;
-    width: 10%;
-    margin-left: 5%;
-}
-
-.header_logoplace--img {
-    height: 60px;
-    margin: 5px 10px;    
+    background: linear-gradient(to bottom right, rgb(116, 116, 116), rgb(24, 24, 24), rgb(0, 0, 0));
+    border-radius: 0 0 70px 70px;
+    justify-content:space-evenly;
 }
 
 .header__search {
     width: 40%;
     height: 40px;
-    margin: 15px 0 0 25%;
+    margin-top: 5px;
     display: flex;
 }
 
@@ -44,21 +34,15 @@ header {
     border-radius: 5px;
 }
 
-.header__search--icon {
-    height: 60%;
-    color: white;
-}
-
 .header__registration {
     display: flex;
-    width: 15%;
-    margin-left: 4%;
+    width: 200px;
 }
 
 .header__button {
     width: 100px;
     height: 40px;
-    margin-top: 15px;
+    margin-top: 5px;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0);
     color: white;
@@ -69,7 +53,7 @@ header {
     position: relative;
     margin-top: 0;
     color: white;
-    background-color:  rgb(27, 60, 168);
+    background-color:  rgb(0, 0, 0);
     z-index: 3;
 }
 
@@ -79,18 +63,20 @@ header {
 
 .products {
     width: 100%;
-    height: 90%;
-    border-left: 2px solid rgb(67, 202, 255);
-    border-right: 2px solid rgb(0, 39, 167);
+    height: 950px;
     display: flex;
 }
 
 .products__categories {
-    height: 100%;
-    width: 20%;
-    background: linear-gradient(to top right, rgb(67, 202, 255), rgb(0, 153, 255));
+    border-width: 2px;
+    border-left-width: 0;
+    border-color: black;
+    border-style: solid;
+    height: 940px;
+    width: 15%;
     padding: 30px 0 0 20px;
-    color: white;
+    margin-top: 10px;
+    color: black;
 }
 
 .products__categories--ul {
@@ -108,13 +94,22 @@ li {
     font-size: 18px;
 }
 
+.category__marker {
+    height: 17px;
+    transition: transform 0.1s linear;
+}
+
 .products__marker {
-    width: 18px;
+    height: 13px;
     transition: transform 0.1s linear;
 }
 
 .with-marker {
-    padding-left: 18px;
+    padding-left: 17px;
+}
+
+.with-marker {
+    padding-left: 13px;
 }
 
 ul {
@@ -136,13 +131,13 @@ ul {
 
 .products__list {
     height: 100%;
-    width: 80%;
+    width: 70%;
 }
 
 .products__string {
     height: 400px;
     width: 100%;
-    padding: 1%;
+    padding: 10px;
     display: flex;
 }
 
@@ -153,7 +148,7 @@ ul {
     height: 100%;
     width: 23%;
     margin: 0 1%;
-    border: 1px solid rgb(0, 153, 255);
+    background-color: white;
     z-index: 0;
 }
 
@@ -184,7 +179,7 @@ ul {
     right: 20px;
     width: 100px;
     height: 30px;
-    background-color: rgb(0, 153, 255);
+    background-color: black;
     border: none;
     border-radius: 5px;
     color: white;
@@ -196,8 +191,7 @@ ul {
 
 .modal__overlay {
     width: 100%;
-    height: 100%;
-    min-height: 900px;
+    height: 1000px;
     top: 0;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5)
@@ -208,8 +202,8 @@ ul {
     width: 40%;
     /* height: 40%; */
     top: 30%;
-    background: linear-gradient(to bottom right, rgb(40, 194, 255), rgb(0, 153, 255), rgb(0, 39, 167));
-    color: white;
+    background-color: white;
+    color: black;
     margin: auto;
     border: 2px solid white;
     border-radius: 5px;
@@ -229,12 +223,12 @@ ul {
 }
 
 .modal__button {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: black;
     color: white;
     width: 20%;
     font-size: 20px;
     margin: 10px 0 20px 40%;
-    border-color: white;
+    border-color: black;
     border-radius: 5px;
 }
 
@@ -249,14 +243,14 @@ ul {
 .modal__card {
     position: relative;
     width: 720px;
-    height: 80%;
+    height: 600px;
     padding: 20px 50px;
     top: 10%;
     margin: auto;
-    color: white;
-    border: 2px solid white;
+    color: black;
+    border: 2px solid black;
     border-radius: 10px;
-    background: linear-gradient(to bottom right, rgb(40, 194, 255), rgb(0, 153, 255), rgb(0, 39, 167));
+    background-color: white;
 }
 
 .modal__card-image {
@@ -343,7 +337,7 @@ ul {
 .modal__basket {
     padding: 30px 20px;
     top: 5%;
-    height: 80%;
+    height: 800px;
     width: 80%;
     min-width: 720px;
 }
@@ -371,7 +365,7 @@ ul {
 .basket__element {
     width: 100%;
     height: 70px;
-    border-bottom: 1px solid rgb(0, 153, 255);
+    border-bottom: 1px solid black;
     display: flex;
 }
 
@@ -413,8 +407,8 @@ ul {
     width: 200px;
     height: 40px;
     background: none;
-    border: 2.5px solid white;
-    border-radius: 5px;
+    background-color: black;
+    border-radius: 15px;
     font-size: 20px;
     color: white;
 }
@@ -450,7 +444,6 @@ ul {
     justify-content: right;
     height: 30px;
     width: 100%;
-    background-color: rgb(0, 153, 255);
 }
 
 .panel__frame-button {

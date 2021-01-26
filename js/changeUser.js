@@ -6,7 +6,7 @@ function changeUser(userLogin) {
     const loginButton = document.querySelector('#header__login-button');
 
     buttonsHeader.forEach((button) => {
-        if (button.id != 'header__login-logout') {
+        if (button.id != 'header__login-logout' && button.id != 'header__login-controlPanel') {
             button.classList.toggle('hide');
         }
     });

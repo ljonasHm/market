@@ -53,6 +53,10 @@ const controlPanel = {
         const panel = document.querySelector('.' + this.panelClass);
 
         panel.classList.toggle('hide');
+    },
+
+    exit() {
+        console.log('soon');
     }
 }
 
