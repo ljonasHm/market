@@ -10,7 +10,7 @@ const controlPanel = {
         panel.innerHTML = `
         <div class="panel__frame">
             <div class="panel__frame-buttons-wrapper">
-                <button class="panel__frame-button"></button>
+                <button class="panel__frame-button" id="panel__frame-button-movement"></button>
                 <button class="panel__frame-button" id="panel__frame-button-cross"></button>
             </div>
         </div>
@@ -18,16 +18,23 @@ const controlPanel = {
         document.body.append(panel);
         panel.classList.add('hide');
         const crossButton = panel.querySelector('#panel__frame-button-cross');
+        const movementButton = panel.querySelector('#panel__frame-button-movement')
         crossButton.addEventListener('click', () => {
             this.toggleHide();
         });
-        panel.onmousedown = function(event) {
+        movementButton.ondragstart = function () {
+            return false;
+        };
+        movementButton.onmousedown = function(event) {
+
+            let shiftX = event.clientX - panel.getBoundingClientRect().left;
+            let shiftY = event.clientY - panel.getBoundingClientRect().top;
 
             moveAt(event.pageX, event.pageY);
 
             function moveAt(pageX, pageY) {
-                panel.style.left = pageX - panel.offsetWidth / 2 + 'px';
-                panel.style.top = pageY - panel.offsetHeight / 2 + 'px';
+                panel.style.left = pageX - shiftX + 'px';
+                panel.style.top = pageY - shiftY + 'px';
             }
 
             function panelMove(event) {
@@ -35,7 +42,10 @@ const controlPanel = {
             }
 
             document.addEventListener('mousemove', panelMove);
-
+            movementButton.onmouseup = function() {
+                document.removeEventListener('mousemove', panelMove);
+                movementButton.onmouseup = null;
+            }
         };
     },
 

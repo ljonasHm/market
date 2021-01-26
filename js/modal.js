@@ -1,7 +1,5 @@
 'use script';
 
-import { over } from "lodash";
-
 function modal() {
     const modalOverlay = document.querySelector('.modal__overlay');
     const modalRegistration = document.querySelector('#modal__registration');

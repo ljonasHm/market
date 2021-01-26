@@ -1,6 +1,5 @@
 'use strict';
 
-import { remove } from 'lodash';
 import cardsRender from './cardsRender';
 
 function removeAllUnderlines() {
