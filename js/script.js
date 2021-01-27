@@ -25,7 +25,18 @@ const meetingSliderSettings = {
     imageDivClassName: 'meeting-slider__slide',
     buttonsAnimation: false,
     fullHeightSize: false,
-    widthOfImgWrapper: 1020
+    widthOfImgWrapper: 1020,
+    insertText: true,
+    text: [
+        "Dolore commodo nisi eiusmod quis",
+        "Est sint pariatur est adipisicing",
+        "Cupidatat nisi cupidatat aliqua elit culpa"
+    ],
+    textClassName: [
+        "meeting-slider__slide-text",
+        "meeting-slider__slide-text",
+        "meeting-slider__slide-text"
+    ]
 }
 
 openUpList(cardSliderSettings);

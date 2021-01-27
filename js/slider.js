@@ -1,6 +1,6 @@
 'use strict';
 
-function cardSlider(settings, images) {
+function slider(settings, images) {
     
     const sliderString = document.querySelector(settings.sliderStringSelector);
     const sliderButtonLeft = document.querySelector(settings.sliderButtonLeftSelector);
@@ -70,4 +70,4 @@ function cardSlider(settings, images) {
     });
 }
 
-export default cardSlider;
+export default slider;

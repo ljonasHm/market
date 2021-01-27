@@ -26,8 +26,8 @@ header {
 
 .header__search {
     width: 40%;
-    height: 40px;
-    margin-top: 5px;
+    height: 30px;
+    margin-top: 10px;
     display: flex;
 }
 
@@ -40,13 +40,24 @@ header {
 
 .header__registration {
     display: flex;
+    width: 300px;
+}
+
+#header__registration {
     width: 150px;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(141, 141, 141);
+}
+
+#header__authorization {
+    width: 150px
 }
 
 .header__button {
-    width: 75px;
-    height: 40px;
-    margin-top: 5px;
+    width: 120px;
+    height: 20px;
+    margin-top: 15px;
     font-size: 15px;
     border: none;
     background-color: rgba(0, 0, 0, 0);
@@ -63,8 +74,19 @@ header {
     z-index: 3;
 }
 
+#header__login-button {
+    margin-right: 5px;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(141, 141, 141);
+}
+
+.header__button-additional {
+    height: 45px;
+}
+
 .header__login-buttons-list {
-    width: 75px;
+    width: 120px;
 }
 
 .meeting-slider {
@@ -280,8 +302,7 @@ ul {
 .modal__window {
     position: relative;
     width: 40%;
-    /* height: 40%; */
-    top: 30%;
+    top: 10%;
     background-color: white;
     color: black;
     margin: auto;

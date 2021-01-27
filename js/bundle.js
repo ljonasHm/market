@@ -47,7 +47,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ProductCard": () => /* binding */ ProductCard
 /* harmony export */ });
-/* harmony import */ var _cardSlider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cardSlider */ "./js/cardSlider.js");
+/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./js/slider.js");
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
 
 
@@ -97,7 +97,7 @@ class ProductCard {
             this.renderCharacteristics();
             sliderString.innerHTML = '';
             sliderString.style.transform = 'translateX(0)';
-            (0,_cardSlider__WEBPACK_IMPORTED_MODULE_0__.default)(this.cardSliderSettings, this.images);
+            (0,_slider__WEBPACK_IMPORTED_MODULE_0__.default)(this.cardSliderSettings, this.images);
         });
         
     }
@@ -141,7 +141,7 @@ class ProductCard {
         element.querySelector('.price__basket-button').addEventListener('click', (event) => {
             event.stopPropagation();
             this.putInTheCart();
-            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Товар добавлен в корзину');
+            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Товар добавлен в корзину', event.pageY-event.clientY + 200);
         });
 
         parent.append(element);
@@ -151,92 +151,6 @@ class ProductCard {
 }
 
 
-
-/***/ }),
-
-/***/ "./js/cardSlider.js":
-/*!**************************!*\
-  !*** ./js/cardSlider.js ***!
-  \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-
-
-function cardSlider(settings, images) {
-    
-    const sliderString = document.querySelector(settings.sliderStringSelector);
-    const sliderButtonLeft = document.querySelector(settings.sliderButtonLeftSelector);
-    const sliderButtonRight = document.querySelector(settings.sliderButtonRightSelector);
-    let slidePlace = 0;
-
-    sliderString.style.width = images.length * settings.widthOfImgWrapper + 'px';
-
-    images.forEach((img, index) => {
-        const imageWrapper = document.createElement('div');
-        const imageDiv = document.createElement('div');
-    
-        imageDiv.classList.add(settings.imageDivClassName);
-
-        imageDiv.style.backgroundImage = `url(${img})`;
-        
-        if(settings.insertText) {
-            const text = document.createElement('div');
-            text.innerHTML = settings.text[index];
-            text.classList.add(settings.textClassName[index]);
-            imageDiv.append(text);
-        }
-
-        if(settings.fullHeightSize) {
-            imageWrapper.classList.add(settings.imageWrapperClassName);
-            imageWrapper.append(imageDiv);
-            sliderString.append(imageWrapper);
-        } else {
-            sliderString.append(imageDiv);
-        }
-
-    });
-
-    sliderButtonLeft.addEventListener('click', () => {
-        
-        if (settings.buttonsAnimation) {
-            sliderButtonLeft.style.backgroundSize = '90% auto';
-            setTimeout(() => {
-                sliderButtonLeft.style.backgroundSize = '100% auto';
-            }, 100);
-        }
-        
-        if(slidePlace < 0) {
-            sliderString.style.transform = `translateX(${slidePlace + settings.widthOfImgWrapper}px)`;
-            slidePlace = slidePlace + settings.widthOfImgWrapper;
-        } else {
-            slidePlace = (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper;
-            sliderString.style.transform = `translateX(${slidePlace}px)`;
-        }
-    });
-
-    sliderButtonRight.addEventListener('click', () => {
-        if (settings.buttonsAnimation) {
-            sliderButtonRight.style.backgroundSize = '90% auto';
-            setTimeout(() => {
-                sliderButtonRight.style.backgroundSize = '100% auto';
-            }, 100);            
-        }
-        
-        if (slidePlace > (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper) {
-            sliderString.style.transform = `translateX(${slidePlace - settings.widthOfImgWrapper}px)`;
-            slidePlace = slidePlace - settings.widthOfImgWrapper;
-        } else {
-            slidePlace = 0;
-            sliderString.style.transform = `translateX(${slidePlace}px)`;
-        }
-    });
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (cardSlider);
 
 /***/ }),
 
@@ -357,6 +271,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const controlPanel = {
     panelClass: "control-panel",
+    panelOpenButtonIdSelector: "#header__login-controlPanel",
+    
 
     render() {
         const panel = document.createElement('div');
@@ -373,7 +289,7 @@ const controlPanel = {
         document.body.append(panel);
         panel.classList.add('hide');
         const crossButton = panel.querySelector('#panel__frame-button-cross');
-        const movementButton = panel.querySelector('#panel__frame-button-movement')
+        const movementButton = panel.querySelector('#panel__frame-button-movement');
         crossButton.addEventListener('click', () => {
             this.toggleHide();
         });
@@ -411,7 +327,9 @@ const controlPanel = {
     },
 
     exit() {
-        console.log('soon');
+        console.log('exit');
+        document.querySelector(`.${this.panelClass}`).remove();
+        document.querySelector(this.panelOpenButtonIdSelector).remove();
     }
 }
 
@@ -465,35 +383,35 @@ function form() {
                 return ((serverDataElement.mail == JSON.parse(jsonData).mail && serverDataElement.login == JSON.parse(jsonData).login) ? true : false);
             })) {
                 (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
-                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Такой почтовый адрес и логин уже зарегестрированы');
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Такой почтовый адрес и логин уже зарегестрированы', event.pageY-event.clientY + 200);
             } else if (data.some((serverDataElement) => {
                 return ((serverDataElement.mail == JSON.parse(jsonData).mail) ? true : false);
             })) {
                 (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
-                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Такой почтовый адрес уже зарегестрирован');
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Такой почтовый адрес уже зарегестрирован', event.pageY-event.clientY + 200);
             } else if (data.some((serverDataElement) => {
                 return ((serverDataElement.login == JSON.parse(jsonData).login) ? true : false);
             })) {
                 (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
-                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Такой логин уже существует');
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Такой логин уже существует', event.pageY-event.clientY + 200);
             } else {
                 (0,_request__WEBPACK_IMPORTED_MODULE_0__.postResource)('http://localhost:3000/users', jsonData)
                 .then(() => {
                     (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
-                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Регистрация прошла успешно');
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Регистрация прошла успешно', event.pageY-event.clientY + 200);
                     registrationForm.reset();
                     localStorage.setItem('user', JSON.parse(jsonData).login);
                     (0,_changeUser__WEBPACK_IMPORTED_MODULE_2__.default)(JSON.parse(jsonData).login);
                 })
                 .catch(() => {
                     (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
-                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при загрузке данных на сервер');
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при загрузке данных на сервер', event.pageY-event.clientY + 200);
                 });
             }
         })
         .catch(() => {
             (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
-            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при запросе с сервера');
+            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при запросе с сервера', event.pageY-event.clientY + 200);
         })
     })
 
@@ -518,18 +436,18 @@ function form() {
                 }
             })) {
                     (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
-                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Вы успешно авторизованы');
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Вы успешно авторизованы', event.pageY-event.clientY + 200);
                     authorizationForm.reset();
                     localStorage.setItem('user', JSON.parse(jsonData).login);
                     (0,_changeUser__WEBPACK_IMPORTED_MODULE_2__.default)(JSON.parse(jsonData).login);
                 } else {
                     (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
-                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Введены неверный логин и/или пароль');
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Введены неверный логин и/или пароль', event.pageY-event.clientY + 200);
             }
         })
         .catch(() => {
             (0,_modal__WEBPACK_IMPORTED_MODULE_1__.toggleLoadingWindow)();
-            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при запросе с сервера');
+            (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при запросе с сервера', event.pageY-event.clientY + 200);
         })
     })
 
@@ -600,22 +518,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "meetingSlider": () => /* binding */ meetingSlider
 /* harmony export */ });
-/* harmony import */ var _cardSlider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cardSlider */ "./js/cardSlider.js");
+/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./js/slider.js");
 
 
 function meetingSlider(sliderSettings) {
-    sliderSettings.insertText = true;
-    sliderSettings.text = [
-        "Dolore commodo nisi eiusmod quis",
-        "Est sint pariatur est adipisicing",
-        "Cupidatat nisi cupidatat aliqua elit culpa"
-    ];
-    sliderSettings.textClassName = [
-        "meeting-slider__slide-text",
-        "meeting-slider__slide-text",
-        "meeting-slider__slide-text"
-    ];
-    (0,_cardSlider__WEBPACK_IMPORTED_MODULE_0__.default)(sliderSettings, ['img/meeting1.jpg', 'img/meeting2.jpg', 'img/meeting3.jpg']);
+    
+    (0,_slider__WEBPACK_IMPORTED_MODULE_0__.default)(sliderSettings, ['img/meeting1.jpg', 'img/meeting2.jpg', 'img/meeting3.jpg']);
 }
 
 
@@ -701,9 +609,11 @@ function modal() {
     }
 }
 
-function showStatusModal(message) {
+function showStatusModal(message, coordinateY) {
     const statusWindow = document.querySelector('#modal__status');
     const overlay = document.querySelector('.modal__overlay');
+
+    statusWindow.style.top = coordinateY + 'px';
 
     if (overlay.classList.contains('hide')) {
         overlay.classList.remove('hide');
@@ -910,7 +820,18 @@ const meetingSliderSettings = {
     imageDivClassName: 'meeting-slider__slide',
     buttonsAnimation: false,
     fullHeightSize: false,
-    widthOfImgWrapper: 1020
+    widthOfImgWrapper: 1020,
+    insertText: true,
+    text: [
+        "Dolore commodo nisi eiusmod quis",
+        "Est sint pariatur est adipisicing",
+        "Cupidatat nisi cupidatat aliqua elit culpa"
+    ],
+    textClassName: [
+        "meeting-slider__slide-text",
+        "meeting-slider__slide-text",
+        "meeting-slider__slide-text"
+    ]
 }
 
 ;(0,_openUpList__WEBPACK_IMPORTED_MODULE_0__.openUpList)(cardSliderSettings);
@@ -948,6 +869,92 @@ function search(cardSliderSettings) {
 }
 
 
+
+/***/ }),
+
+/***/ "./js/slider.js":
+/*!**********************!*\
+  !*** ./js/slider.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+
+
+function slider(settings, images) {
+    
+    const sliderString = document.querySelector(settings.sliderStringSelector);
+    const sliderButtonLeft = document.querySelector(settings.sliderButtonLeftSelector);
+    const sliderButtonRight = document.querySelector(settings.sliderButtonRightSelector);
+    let slidePlace = 0;
+
+    sliderString.style.width = images.length * settings.widthOfImgWrapper + 'px';
+
+    images.forEach((img, index) => {
+        const imageWrapper = document.createElement('div');
+        const imageDiv = document.createElement('div');
+    
+        imageDiv.classList.add(settings.imageDivClassName);
+
+        imageDiv.style.backgroundImage = `url(${img})`;
+        
+        if(settings.insertText) {
+            const text = document.createElement('div');
+            text.innerHTML = settings.text[index];
+            text.classList.add(settings.textClassName[index]);
+            imageDiv.append(text);
+        }
+
+        if(settings.fullHeightSize) {
+            imageWrapper.classList.add(settings.imageWrapperClassName);
+            imageWrapper.append(imageDiv);
+            sliderString.append(imageWrapper);
+        } else {
+            sliderString.append(imageDiv);
+        }
+
+    });
+
+    sliderButtonLeft.addEventListener('click', () => {
+        
+        if (settings.buttonsAnimation) {
+            sliderButtonLeft.style.backgroundSize = '90% auto';
+            setTimeout(() => {
+                sliderButtonLeft.style.backgroundSize = '100% auto';
+            }, 100);
+        }
+        
+        if(slidePlace < 0) {
+            sliderString.style.transform = `translateX(${slidePlace + settings.widthOfImgWrapper}px)`;
+            slidePlace = slidePlace + settings.widthOfImgWrapper;
+        } else {
+            slidePlace = (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper;
+            sliderString.style.transform = `translateX(${slidePlace}px)`;
+        }
+    });
+
+    sliderButtonRight.addEventListener('click', () => {
+        if (settings.buttonsAnimation) {
+            sliderButtonRight.style.backgroundSize = '90% auto';
+            setTimeout(() => {
+                sliderButtonRight.style.backgroundSize = '100% auto';
+            }, 100);            
+        }
+        
+        if (slidePlace > (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper) {
+            sliderString.style.transform = `translateX(${slidePlace - settings.widthOfImgWrapper}px)`;
+            slidePlace = slidePlace - settings.widthOfImgWrapper;
+        } else {
+            slidePlace = 0;
+            sliderString.style.transform = `translateX(${slidePlace}px)`;
+        }
+    });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (slider);
 
 /***/ }),
 

@@ -65,9 +65,11 @@ function modal() {
     }
 }
 
-function showStatusModal(message) {
+function showStatusModal(message, coordinateY) {
     const statusWindow = document.querySelector('#modal__status');
     const overlay = document.querySelector('.modal__overlay');
+
+    statusWindow.style.top = coordinateY + 'px';
 
     if (overlay.classList.contains('hide')) {
         overlay.classList.remove('hide');

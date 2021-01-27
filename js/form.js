@@ -31,35 +31,35 @@ function form() {
                 return ((serverDataElement.mail == JSON.parse(jsonData).mail && serverDataElement.login == JSON.parse(jsonData).login) ? true : false);
             })) {
                 toggleLoadingWindow();
-                showStatusModal('Такой почтовый адрес и логин уже зарегестрированы');
+                showStatusModal('Такой почтовый адрес и логин уже зарегестрированы', event.pageY-event.clientY + 200);
             } else if (data.some((serverDataElement) => {
                 return ((serverDataElement.mail == JSON.parse(jsonData).mail) ? true : false);
             })) {
                 toggleLoadingWindow();
-                showStatusModal('Такой почтовый адрес уже зарегестрирован');
+                showStatusModal('Такой почтовый адрес уже зарегестрирован', event.pageY-event.clientY + 200);
             } else if (data.some((serverDataElement) => {
                 return ((serverDataElement.login == JSON.parse(jsonData).login) ? true : false);
             })) {
                 toggleLoadingWindow();
-                showStatusModal('Такой логин уже существует');
+                showStatusModal('Такой логин уже существует', event.pageY-event.clientY + 200);
             } else {
                 postResource('http://localhost:3000/users', jsonData)
                 .then(() => {
                     toggleLoadingWindow();
-                    showStatusModal('Регистрация прошла успешно');
+                    showStatusModal('Регистрация прошла успешно', event.pageY-event.clientY + 200);
                     registrationForm.reset();
                     localStorage.setItem('user', JSON.parse(jsonData).login);
                     changeUser(JSON.parse(jsonData).login);
                 })
                 .catch(() => {
                     toggleLoadingWindow();
-                    showStatusModal('Произошла ошибка при загрузке данных на сервер');
+                    showStatusModal('Произошла ошибка при загрузке данных на сервер', event.pageY-event.clientY + 200);
                 });
             }
         })
         .catch(() => {
             toggleLoadingWindow();
-            showStatusModal('Произошла ошибка при запросе с сервера');
+            showStatusModal('Произошла ошибка при запросе с сервера', event.pageY-event.clientY + 200);
         })
     })
 
@@ -84,18 +84,18 @@ function form() {
                 }
             })) {
                     toggleLoadingWindow();
-                    showStatusModal('Вы успешно авторизованы');
+                    showStatusModal('Вы успешно авторизованы', event.pageY-event.clientY + 200);
                     authorizationForm.reset();
                     localStorage.setItem('user', JSON.parse(jsonData).login);
                     changeUser(JSON.parse(jsonData).login);
                 } else {
                     toggleLoadingWindow();
-                    showStatusModal('Введены неверный логин и/или пароль');
+                    showStatusModal('Введены неверный логин и/или пароль', event.pageY-event.clientY + 200);
             }
         })
         .catch(() => {
             toggleLoadingWindow();
-            showStatusModal('Произошла ошибка при запросе с сервера');
+            showStatusModal('Произошла ошибка при запросе с сервера', event.pageY-event.clientY + 200);
         })
     })
 

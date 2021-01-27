@@ -2,6 +2,8 @@ import { EventEmitter } from "events";
 
 const controlPanel = {
     panelClass: "control-panel",
+    panelOpenButtonIdSelector: "#header__login-controlPanel",
+    
 
     render() {
         const panel = document.createElement('div');
@@ -18,7 +20,7 @@ const controlPanel = {
         document.body.append(panel);
         panel.classList.add('hide');
         const crossButton = panel.querySelector('#panel__frame-button-cross');
-        const movementButton = panel.querySelector('#panel__frame-button-movement')
+        const movementButton = panel.querySelector('#panel__frame-button-movement');
         crossButton.addEventListener('click', () => {
             this.toggleHide();
         });
@@ -56,7 +58,9 @@ const controlPanel = {
     },
 
     exit() {
-        console.log('soon');
+        console.log('exit');
+        document.querySelector(`.${this.panelClass}`).remove();
+        document.querySelector(this.panelOpenButtonIdSelector).remove();
     }
 }
 

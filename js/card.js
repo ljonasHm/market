@@ -1,4 +1,4 @@
-import cardSlider from './cardSlider';
+import slider from './slider';
 import {showStatusModal} from './modal';
 
 class ProductCard {
@@ -46,7 +46,7 @@ class ProductCard {
             this.renderCharacteristics();
             sliderString.innerHTML = '';
             sliderString.style.transform = 'translateX(0)';
-            cardSlider(this.cardSliderSettings, this.images);
+            slider(this.cardSliderSettings, this.images);
         });
         
     }
@@ -90,7 +90,7 @@ class ProductCard {
         element.querySelector('.price__basket-button').addEventListener('click', (event) => {
             event.stopPropagation();
             this.putInTheCart();
-            showStatusModal('Товар добавлен в корзину');
+            showStatusModal('Товар добавлен в корзину', event.pageY-event.clientY + 200);
         });
 
         parent.append(element);
