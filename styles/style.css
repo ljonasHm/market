@@ -1,12 +1,16 @@
 body, html {
     width: 100%;
-    min-width: 1080px;
-    background-color: rgb(245, 245, 245)
+    /* min-width: 1080px; */
+    background-color: white;
+}
+
+p {
+    font-family: "CrimsomText-regular";
 }
 
 .main {
     width: 100%;
-    height: 1000px;
+    height: 1500px;
     margin: auto;
 }
 
@@ -36,17 +40,19 @@ header {
 
 .header__registration {
     display: flex;
-    width: 200px;
+    width: 150px;
 }
 
 .header__button {
-    width: 100px;
+    width: 75px;
     height: 40px;
     margin-top: 5px;
-    border-radius: 5px;
+    font-size: 15px;
+    border: none;
     background-color: rgba(0, 0, 0, 0);
     color: white;
-    border-color: white;
+    padding: 0;
+    font-family: "Prata-regular";
 }
 
 .header__button-additional {
@@ -58,7 +64,76 @@ header {
 }
 
 .header__login-buttons-list {
-    width: 100px;
+    width: 75px;
+}
+
+.meeting-slider {
+    height: 500px;
+    width: 67%;
+    margin: auto;
+    display: flex;
+}
+
+.meeting-slider__wrapper {
+    width: 1020px;
+    height: 100%;
+    background-color: white;
+    overflow: hidden;
+}
+
+.meeting-slider__arrow {
+    width: 10%;
+    height: 100%;
+    background-color: rgb(231, 231, 231);
+    background-position: center;
+    background-size: 70% auto;
+    background-repeat:no-repeat;
+}
+
+.meeting-slider__arrow:hover {
+    background-color:rgb(200, 200, 200);
+}
+
+.meeting-slider__string {
+    position: relative;
+    height: 100%;
+    display: flex;
+    transition: transform 1s;
+}
+
+.meeting-slider__slide {
+    height: 100%;
+    width: 1020px;
+    background-position: center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+.meeting-slider__slide-text {
+    position: relative;
+    top: 60%;
+    left: 60%;
+    font-family: "Prata-regular";
+    font-size: 35px;
+    color: white;
+    background-color: black;
+    width: 320px;
+    padding: 10px;
+}
+
+.meeting-slider__text-wrapper {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: black;
+}
+
+#meeting-slider__arrow-left {
+    background-image: url(/img/arrow-left2.png);
+}
+
+#meeting-slider__arrow-right {
+    background-image: url(/img/arrow-right2.png);
 }
 
 .products {
@@ -68,15 +143,16 @@ header {
 }
 
 .products__categories {
+    display: table;
     border-width: 2px;
     border-left-width: 0;
     border-color: black;
     border-style: solid;
-    height: 940px;
     width: 15%;
-    padding: 30px 0 0 20px;
+    padding: 15px 0 30px 30px;
     margin-top: 10px;
     color: black;
+    transition: height 0.5s;
 }
 
 .products__categories--ul {
@@ -145,15 +221,17 @@ ul {
     position: relative;
     text-align: center;
     cursor: pointer;
-    height: 100%;
-    width: 23%;
-    margin: 0 1%;
-    background-color: white;
+    height: 380px;
+    width: 24%;
+    margin: 0 0.5%;
+    padding: 10px;
+    background-color: rgb(231, 231, 231);
     z-index: 0;
+    overflow: hidden;
 }
 
 .card__img {
-    height: 60%;
+    height: 230px;
     width: 100%;
     background-size: 100% auto;
     background-repeat: no-repeat;
@@ -162,6 +240,7 @@ ul {
 .card__name {
     font-size: 25px;
     margin: 10px;
+    font-family: "Roboto-regular";
 }
 
 .card__price {
@@ -172,6 +251,7 @@ ul {
     right: 0;
     padding: 15px 20px;
     font-size: 22px;
+    font-family: "CrimsomText-regular";
 }
 
 .price__basket-button {
@@ -191,7 +271,7 @@ ul {
 
 .modal__overlay {
     width: 100%;
-    height: 1000px;
+    height: 1500px;
     top: 0;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5)
@@ -245,7 +325,6 @@ ul {
     width: 720px;
     height: 600px;
     padding: 20px 50px;
-    top: 10%;
     margin: auto;
     color: black;
     border: 2px solid black;
@@ -464,4 +543,25 @@ ul {
     background-image: url(../img/cross.jpg);
     background-size: 25px 25px;
     background-position: center;
+}
+
+@font-face {
+    font-family: "Prata-regular";
+    src: url("../fonts/Prata-Regular.ttf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Roboto-regular";
+    src: url("../fonts/Roboto-Regular.ttf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "CrimsomText-regular";
+    src: url("../fonts/CrimsonText-Regular.ttf");
+    font-style: normal;
+    font-weight: normal;
 }

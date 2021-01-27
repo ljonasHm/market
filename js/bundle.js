@@ -47,7 +47,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ProductCard": () => /* binding */ ProductCard
 /* harmony export */ });
-/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./js/slider.js");
+/* harmony import */ var _cardSlider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cardSlider */ "./js/cardSlider.js");
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
 
 
@@ -78,21 +78,28 @@ class ProductCard {
         }
     }
 
-    open() {
+    open(card) {
+
         const overlay = document.querySelector('.modal__overlay');
         const cardWindow = document.querySelector('.modal__card');
         const sliderString = document.querySelector('.modal__slider-string');
 
-        cardWindow.classList.add('show');
-        cardWindow.classList.remove('hide');
-        overlay.classList.add('show');
-        overlay.classList.remove('hide');
-        cardWindow.querySelector('h1').innerHTML = this.name;
-        cardWindow.querySelector('.modal__card-price').innerHTML = `${this.price} руб`;
-        this.renderCharacteristics();
-        sliderString.innerHTML = '';
-        sliderString.style.transform = 'translateX(0)';
-        (0,_slider__WEBPACK_IMPORTED_MODULE_0__.default)(this.cardSliderSettings, this.images);
+        card.addEventListener('click', (event) => {
+
+            cardWindow.style.top = `${event.pageY - event.clientY + 100}px`
+
+            cardWindow.classList.add('show');
+            cardWindow.classList.remove('hide');
+            overlay.classList.add('show');
+            overlay.classList.remove('hide');
+            cardWindow.querySelector('h1').innerHTML = this.name;
+            cardWindow.querySelector('.modal__card-price').innerHTML = `${this.price} руб`;
+            this.renderCharacteristics();
+            sliderString.innerHTML = '';
+            sliderString.style.transform = 'translateX(0)';
+            (0,_cardSlider__WEBPACK_IMPORTED_MODULE_0__.default)(this.cardSliderSettings, this.images);
+        });
+        
     }
 
     putInTheCart() {
@@ -136,15 +143,100 @@ class ProductCard {
             this.putInTheCart();
             (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Товар добавлен в корзину');
         });
+
         parent.append(element);
         this.element = element;
-        element.addEventListener('click', () => {
-            this.open();
-        })
+        this.open(element);
     }
 }
 
 
+
+/***/ }),
+
+/***/ "./js/cardSlider.js":
+/*!**************************!*\
+  !*** ./js/cardSlider.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+
+
+function cardSlider(settings, images) {
+    
+    const sliderString = document.querySelector(settings.sliderStringSelector);
+    const sliderButtonLeft = document.querySelector(settings.sliderButtonLeftSelector);
+    const sliderButtonRight = document.querySelector(settings.sliderButtonRightSelector);
+    let slidePlace = 0;
+
+    sliderString.style.width = images.length * settings.widthOfImgWrapper + 'px';
+
+    images.forEach((img, index) => {
+        const imageWrapper = document.createElement('div');
+        const imageDiv = document.createElement('div');
+    
+        imageDiv.classList.add(settings.imageDivClassName);
+
+        imageDiv.style.backgroundImage = `url(${img})`;
+        
+        if(settings.insertText) {
+            const text = document.createElement('div');
+            text.innerHTML = settings.text[index];
+            text.classList.add(settings.textClassName[index]);
+            imageDiv.append(text);
+        }
+
+        if(settings.fullHeightSize) {
+            imageWrapper.classList.add(settings.imageWrapperClassName);
+            imageWrapper.append(imageDiv);
+            sliderString.append(imageWrapper);
+        } else {
+            sliderString.append(imageDiv);
+        }
+
+    });
+
+    sliderButtonLeft.addEventListener('click', () => {
+        
+        if (settings.buttonsAnimation) {
+            sliderButtonLeft.style.backgroundSize = '90% auto';
+            setTimeout(() => {
+                sliderButtonLeft.style.backgroundSize = '100% auto';
+            }, 100);
+        }
+        
+        if(slidePlace < 0) {
+            sliderString.style.transform = `translateX(${slidePlace + settings.widthOfImgWrapper}px)`;
+            slidePlace = slidePlace + settings.widthOfImgWrapper;
+        } else {
+            slidePlace = (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper;
+            sliderString.style.transform = `translateX(${slidePlace}px)`;
+        }
+    });
+
+    sliderButtonRight.addEventListener('click', () => {
+        if (settings.buttonsAnimation) {
+            sliderButtonRight.style.backgroundSize = '90% auto';
+            setTimeout(() => {
+                sliderButtonRight.style.backgroundSize = '100% auto';
+            }, 100);            
+        }
+        
+        if (slidePlace > (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper) {
+            sliderString.style.transform = `translateX(${slidePlace - settings.widthOfImgWrapper}px)`;
+            slidePlace = slidePlace - settings.widthOfImgWrapper;
+        } else {
+            slidePlace = 0;
+            sliderString.style.transform = `translateX(${slidePlace}px)`;
+        }
+    });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (cardSlider);
 
 /***/ }),
 
@@ -498,6 +590,38 @@ function login() {
 
 /***/ }),
 
+/***/ "./js/meetingSlider.js":
+/*!*****************************!*\
+  !*** ./js/meetingSlider.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "meetingSlider": () => /* binding */ meetingSlider
+/* harmony export */ });
+/* harmony import */ var _cardSlider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cardSlider */ "./js/cardSlider.js");
+
+
+function meetingSlider(sliderSettings) {
+    sliderSettings.insertText = true;
+    sliderSettings.text = [
+        "Dolore commodo nisi eiusmod quis",
+        "Est sint pariatur est adipisicing",
+        "Cupidatat nisi cupidatat aliqua elit culpa"
+    ];
+    sliderSettings.textClassName = [
+        "meeting-slider__slide-text",
+        "meeting-slider__slide-text",
+        "meeting-slider__slide-text"
+    ];
+    (0,_cardSlider__WEBPACK_IMPORTED_MODULE_0__.default)(sliderSettings, ['img/meeting1.jpg', 'img/meeting2.jpg', 'img/meeting3.jpg']);
+}
+
+
+
+/***/ }),
+
 /***/ "./js/modal.js":
 /*!*********************!*\
   !*** ./js/modal.js ***!
@@ -665,6 +789,8 @@ function openUpList(cardSliderSettings) {
     const allMarkers = openUpListDiv.querySelectorAll('img');
     const searchInput = document.querySelector('.header__search--input');
 
+    
+
     allLi.forEach(li => {
         li.classList.add('hide');
         li.addEventListener('click', event => {
@@ -756,6 +882,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login */ "./js/login.js");
 /* harmony import */ var _basket__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./basket */ "./js/basket.js");
 /* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./search */ "./js/search.js");
+/* harmony import */ var _meetingSlider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./meetingSlider */ "./js/meetingSlider.js");
+
 
 
 
@@ -771,7 +899,18 @@ const cardSliderSettings = {
     imageWrapperClassName: 'modal__card-image-block',
     imageDivClassName: 'modal__card-image',
     buttonsAnimation: true,
+    fullHeightSize: true,
     widthOfImgWrapper: 500
+}
+
+const meetingSliderSettings = {
+    sliderStringSelector: '.meeting-slider__string',
+    sliderButtonLeftSelector: '#meeting-slider__arrow-left',
+    sliderButtonRightSelector: '#meeting-slider__arrow-right',
+    imageDivClassName: 'meeting-slider__slide',
+    buttonsAnimation: false,
+    fullHeightSize: false,
+    widthOfImgWrapper: 1020
 }
 
 ;(0,_openUpList__WEBPACK_IMPORTED_MODULE_0__.openUpList)(cardSliderSettings);
@@ -781,6 +920,7 @@ const cardSliderSettings = {
 (0,_login__WEBPACK_IMPORTED_MODULE_4__.default)();
 (0,_basket__WEBPACK_IMPORTED_MODULE_5__.basket)();
 (0,_search__WEBPACK_IMPORTED_MODULE_6__.search)(cardSliderSettings);
+(0,_meetingSlider__WEBPACK_IMPORTED_MODULE_7__.meetingSlider)(meetingSliderSettings);
 
 /***/ }),
 
@@ -808,79 +948,6 @@ function search(cardSliderSettings) {
 }
 
 
-
-/***/ }),
-
-/***/ "./js/slider.js":
-/*!**********************!*\
-  !*** ./js/slider.js ***!
-  \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-
-
-function slider(settings, images) {
-    
-    const sliderString = document.querySelector(settings.sliderStringSelector);
-    const sliderButtonLeft = document.querySelector(settings.sliderButtonLeftSelector);
-    const sliderButtonRight = document.querySelector(settings.sliderButtonRightSelector);
-    let slidePlace = 0;
-
-    sliderString.style.width = images.length * settings.widthOfImgWrapper + 'px';
-
-    images.forEach((img) => {
-        const imageWrapper = document.createElement('div');
-        const imageDiv = document.createElement('div');
-
-        imageWrapper.classList.add(settings.imageWrapperClassName);
-        imageDiv.classList.add(settings.imageDivClassName);
-
-        imageDiv.style.backgroundImage = `url(${img})`;
-        imageWrapper.append(imageDiv);
-        sliderString.append(imageWrapper);
-    });
-
-    sliderButtonLeft.addEventListener('click', () => {
-        
-        if (settings.buttonsAnimation) {
-            sliderButtonLeft.style.backgroundSize = '90% auto';
-            setTimeout(() => {
-                sliderButtonLeft.style.backgroundSize = '100% auto';
-            }, 100);
-        }
-        
-        if(slidePlace < 0) {
-            sliderString.style.transform = `translateX(${slidePlace + settings.widthOfImgWrapper}px)`;
-            slidePlace = slidePlace + settings.widthOfImgWrapper;
-        } else {
-            slidePlace = (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper;
-            sliderString.style.transform = `translateX(${slidePlace}px)`;
-        }
-    });
-
-    sliderButtonRight.addEventListener('click', () => {
-        if (settings.buttonsAnimation) {
-            sliderButtonRight.style.backgroundSize = '90% auto';
-            setTimeout(() => {
-                sliderButtonRight.style.backgroundSize = '100% auto';
-            }, 100);            
-        }
-        
-        if (slidePlace > (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper) {
-            sliderString.style.transform = `translateX(${slidePlace - settings.widthOfImgWrapper}px)`;
-            slidePlace = slidePlace - settings.widthOfImgWrapper;
-        } else {
-            slidePlace = 0;
-            sliderString.style.transform = `translateX(${slidePlace}px)`;
-        }
-    });
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (slider);
 
 /***/ }),
 

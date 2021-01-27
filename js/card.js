@@ -1,4 +1,4 @@
-import slider from './slider';
+import cardSlider from './cardSlider';
 import {showStatusModal} from './modal';
 
 class ProductCard {
@@ -27,21 +27,28 @@ class ProductCard {
         }
     }
 
-    open() {
+    open(card) {
+
         const overlay = document.querySelector('.modal__overlay');
         const cardWindow = document.querySelector('.modal__card');
         const sliderString = document.querySelector('.modal__slider-string');
 
-        cardWindow.classList.add('show');
-        cardWindow.classList.remove('hide');
-        overlay.classList.add('show');
-        overlay.classList.remove('hide');
-        cardWindow.querySelector('h1').innerHTML = this.name;
-        cardWindow.querySelector('.modal__card-price').innerHTML = `${this.price} руб`;
-        this.renderCharacteristics();
-        sliderString.innerHTML = '';
-        sliderString.style.transform = 'translateX(0)';
-        slider(this.cardSliderSettings, this.images);
+        card.addEventListener('click', (event) => {
+
+            cardWindow.style.top = `${event.pageY - event.clientY + 100}px`
+
+            cardWindow.classList.add('show');
+            cardWindow.classList.remove('hide');
+            overlay.classList.add('show');
+            overlay.classList.remove('hide');
+            cardWindow.querySelector('h1').innerHTML = this.name;
+            cardWindow.querySelector('.modal__card-price').innerHTML = `${this.price} руб`;
+            this.renderCharacteristics();
+            sliderString.innerHTML = '';
+            sliderString.style.transform = 'translateX(0)';
+            cardSlider(this.cardSliderSettings, this.images);
+        });
+        
     }
 
     putInTheCart() {
@@ -85,11 +92,10 @@ class ProductCard {
             this.putInTheCart();
             showStatusModal('Товар добавлен в корзину');
         });
+
         parent.append(element);
         this.element = element;
-        element.addEventListener('click', () => {
-            this.open();
-        })
+        this.open(element);
     }
 }
 

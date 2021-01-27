@@ -5,6 +5,7 @@ import form from './form';
 import login from './login';
 import {basket} from './basket';
 import {search} from './search';
+import {meetingSlider} from './meetingSlider';
 
 const cardSliderSettings = {
     sliderStringSelector: '.modal__slider-string',
@@ -13,7 +14,18 @@ const cardSliderSettings = {
     imageWrapperClassName: 'modal__card-image-block',
     imageDivClassName: 'modal__card-image',
     buttonsAnimation: true,
+    fullHeightSize: true,
     widthOfImgWrapper: 500
+}
+
+const meetingSliderSettings = {
+    sliderStringSelector: '.meeting-slider__string',
+    sliderButtonLeftSelector: '#meeting-slider__arrow-left',
+    sliderButtonRightSelector: '#meeting-slider__arrow-right',
+    imageDivClassName: 'meeting-slider__slide',
+    buttonsAnimation: false,
+    fullHeightSize: false,
+    widthOfImgWrapper: 1020
 }
 
 openUpList(cardSliderSettings);
@@ -23,3 +35,4 @@ form();
 login();
 basket();
 search(cardSliderSettings);
+meetingSlider(meetingSliderSettings);

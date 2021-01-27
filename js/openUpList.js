@@ -47,6 +47,8 @@ function openUpList(cardSliderSettings) {
     const allMarkers = openUpListDiv.querySelectorAll('img');
     const searchInput = document.querySelector('.header__search--input');
 
+    
+
     allLi.forEach(li => {
         li.classList.add('hide');
         li.addEventListener('click', event => {
