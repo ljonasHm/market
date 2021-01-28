@@ -7,6 +7,7 @@ const controlPanel = {
 
     render() {
         const panel = document.createElement('div');
+        this.panel = panel;
 
         panel.classList.add(this.panelClass);
         panel.innerHTML = `
@@ -16,28 +17,47 @@ const controlPanel = {
                 <button class="panel__frame-button" id="panel__frame-button-cross"></button>
             </div>
         </div>
+        <div class="panel__main">
+            <div class="panel__mark-list">
+                <div class="panel__mark">Добавление товара</div>
+                <div class="panel__mark">Добавление категории</div>
+                <div class="panel__mark">Добавление администратора</div>
+            </div>
+        </div>
         `;
         document.body.append(panel);
         panel.classList.add('hide');
-        const crossButton = panel.querySelector('#panel__frame-button-cross');
-        const movementButton = panel.querySelector('#panel__frame-button-movement');
+        
+        this.clickMark();
+        this.closePanel();
+        this.movePanel();
+    },
+
+    closePanel(){
+        const crossButton = this.panel.querySelector('#panel__frame-button-cross');
+
         crossButton.addEventListener('click', () => {
             this.toggleHide();
         });
+    },
+
+    movePanel() {
+        const movementButton = this.panel.querySelector('#panel__frame-button-movement');
+
         movementButton.ondragstart = function () {
             return false;
         };
-        movementButton.onmousedown = function(event) {
+        movementButton.onmousedown = (event) => {
 
-            let shiftX = event.clientX - panel.getBoundingClientRect().left;
-            let shiftY = event.clientY - panel.getBoundingClientRect().top;
+            let shiftX = event.clientX - this.panel.getBoundingClientRect().left;
+            let shiftY = event.clientY - this.panel.getBoundingClientRect().top;
+
+            const moveAt = (pageX, pageY) => {
+                this.panel.style.left = pageX - shiftX + 'px';
+                this.panel.style.top = pageY - shiftY + 'px';
+            }
 
             moveAt(event.pageX, event.pageY);
-
-            function moveAt(pageX, pageY) {
-                panel.style.left = pageX - shiftX + 'px';
-                panel.style.top = pageY - shiftY + 'px';
-            }
 
             function panelMove(event) {
                 moveAt(event.pageX, event.pageY);
@@ -51,10 +71,22 @@ const controlPanel = {
         };
     },
 
-    toggleHide() {
-        const panel = document.querySelector('.' + this.panelClass);
+    clickMark() {
+        const marks = document.querySelectorAll('.panel__mark');
 
-        panel.classList.toggle('hide');
+        marks.forEach((mark) => {
+            mark.addEventListener('click', () => {
+                marks.forEach((mark) => {
+                    mark.classList.remove('panel__mark-checked');
+                });
+                mark.classList.add('panel__mark-checked');
+            });
+        });
+    },
+
+    toggleHide() {
+
+        this.panel.classList.toggle('hide');
     },
 
     exit() {
