@@ -267,6 +267,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! events */ "./node_modules/events/events.js");
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./request */ "./js/request.js");
+
 
 
 const controlPanel = {
@@ -288,18 +290,66 @@ const controlPanel = {
         </div>
         <div class="panel__main">
             <div class="panel__mark-list">
-                <div class="panel__mark">Добавление товара</div>
+                <div class="panel__mark panel__mark-checked">Добавление товара</div>
                 <div class="panel__mark">Добавление категории</div>
                 <div class="panel__mark">Добавление администратора</div>
             </div>
+            <form class="panel__control-product">
+                <div class="panel__control-string">
+                    <p class="panel__control-p">Имя продукта:</p>
+                    <input class="panel__input" name="name" type="text">
+                </div>
+                <div class="panel__control-string">
+                    <p class="panel__control-p">Изображения:</p>
+                    <div class="panel__input-list">
+                        <button class="panel__button-plus">+</button>
+                        <input class="panel__input panel__input-img" type="text">
+                    </div>
+                </div>
+                <div class="panel__control-string">
+                    <p class="panel__control-p">Цена:</p>
+                    <input class="panel__input" name="price" type="text">
+                </div>
+                <div class="panel__control-string">
+                    <p class="panel__control-p">Категории:</p>
+                    <div class="panel__input-list">
+                        <button class="panel__button-plus">+</button>
+                        <input class="panel__input panel__input-categories" type="text">
+                    </div>
+                </div>
+                <div class="panel__control-string">
+                    <p class="panel__control-p">Характеристики:</p>
+                    <div class="panel__input-list">
+                        <button class="panel__button-plus">+</button>
+                        <input class="panel__input panel__input-characteristics" type="text">
+                    </div>
+                </div>
+                <div class="panel__control-string">
+                    <button class="panel__control-button" id="panel__control-submit-product">Принять</button>
+                    <button class="panel__control-button">Очистить</button>
+                </div>
+            </form>
         </div>
         `;
         document.body.append(panel);
         panel.classList.add('hide');
         
+        this.submitProduct();
         this.clickMark();
         this.closePanel();
         this.movePanel();
+    },
+
+    submitProduct() {
+        const button = document.querySelector('#panel__control-submit-product');
+        const form = document.querySelector('.panel__control-product');
+
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+
+            console.log(Object.fromEntries(formData));
+        });
     },
 
     closePanel(){
