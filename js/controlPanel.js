@@ -1,4 +1,3 @@
-import { EventEmitter } from "events";
 import {postResource} from "./request";
 
 const controlPanel = {
@@ -31,9 +30,11 @@ const controlPanel = {
                 </div>
                 <div class="panel__control-string">
                     <p class="panel__control-p">Изображения:</p>
-                    <div class="panel__input-list">
+                    <div class="panel__input-with-list">
                         <button class="panel__button-plus">+</button>
-                        <input class="panel__input panel__input-img" type="text">
+                        <div class="panel__input-list">
+                            <input class="panel__input panel__input-img" type="text">
+                        </div>
                     </div>
                 </div>
                 <div class="panel__control-string">
@@ -42,16 +43,20 @@ const controlPanel = {
                 </div>
                 <div class="panel__control-string">
                     <p class="panel__control-p">Категории:</p>
-                    <div class="panel__input-list">
+                    <div class="panel__input-with-list">
                         <button class="panel__button-plus">+</button>
-                        <input class="panel__input panel__input-categories" type="text">
+                        <div class="panel__input-list">
+                            <input class="panel__input panel__input-categories" type="text">
+                        </div>
                     </div>
                 </div>
                 <div class="panel__control-string">
                     <p class="panel__control-p">Характеристики:</p>
-                    <div class="panel__input-list">
+                    <div class="panel__input-with-list">
                         <button class="panel__button-plus">+</button>
-                        <input class="panel__input panel__input-characteristics" type="text">
+                        <div class="panel__input-list">
+                            <input class="panel__input panel__input-characteristics" type="text">
+                        </div>
                     </div>
                 </div>
                 <div class="panel__control-string">
@@ -64,10 +69,27 @@ const controlPanel = {
         document.body.append(panel);
         panel.classList.add('hide');
         
+        this.addInput();
         this.submitProduct();
         this.clickMark();
         this.closePanel();
         this.movePanel();
+    },
+
+    addInput() {
+        const plusButtons = document.querySelectorAll('.panel__button-plus');
+
+        plusButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                const newInput = document.createElement('input');
+                button.parentElement.style.height = +window.getComputedStyle(button.parentElement).height.replace(/\D/g, '') + 25 + 'px';
+                button.nextElementSibling.firstElementChild.classList.forEach(inputClass => {
+                    newInput.classList.add(inputClass);
+                });
+                button.nextElementSibling.append(newInput);
+            });
+        });
     },
 
     submitProduct() {
