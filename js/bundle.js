@@ -266,6 +266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "controlPanel": () => /* binding */ controlPanel
 /* harmony export */ });
 /* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request */ "./js/request.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
+
 
 
 const controlPanel = {
@@ -329,7 +331,7 @@ const controlPanel = {
                 </div>
                 <div class="panel__control-string">
                     <button class="panel__control-button" id="panel__control-submit-product">Принять</button>
-                    <button class="panel__control-button">Очистить</button>
+                    <button class="panel__control-button panel__control-clear">Очистить</button>
                 </div>
             </form>
         </div>
@@ -337,11 +339,23 @@ const controlPanel = {
         document.body.append(panel);
         panel.classList.add('hide');
         
+        this.clearForm();
         this.addInput();
         this.submitProduct();
         this.clickMark();
         this.closePanel();
         this.movePanel();
+    },
+
+    clearForm() {
+        const clearButtons = document.querySelectorAll('.panel__control-clear');
+
+        clearButtons.forEach((button) => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                button.parentElement.parentElement.reset();
+            });
+        });
     },
 
     addInput() {
@@ -363,12 +377,37 @@ const controlPanel = {
     submitProduct() {
         const button = document.querySelector('#panel__control-submit-product');
         const form = document.querySelector('.panel__control-product');
+                
+
 
         button.addEventListener('click', (event) => {
             event.preventDefault();
-            const formData = new FormData(form);
+            const imagesInputs = form.querySelectorAll('.panel__input-img');
+            const categoriesInputs = form.querySelectorAll('.panel__input-categories');
+            const characteristicsInputs = form.querySelectorAll('.panel__input-characteristics');
+            
+            const objFormData = Object.fromEntries(new FormData(form));
 
-            console.log(Object.fromEntries(formData));
+            objFormData.images = [];
+            imagesInputs.forEach((input) => {
+                objFormData.images.push(input.value);
+            });
+            objFormData.categories = [];
+            categoriesInputs.forEach((input) => {
+                objFormData.categories.push(input.value);
+            });
+            objFormData.characteristics = [];
+            characteristicsInputs.forEach((input) => {
+                objFormData.characteristics.push(input.value);
+            });
+            (0,_request__WEBPACK_IMPORTED_MODULE_0__.postResource)('http://localhost:3000/products', JSON.stringify(objFormData))
+            .then(() => {
+                form.reset();
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)("Товар успешно добавлен");
+            })
+            .catch(() => {
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при загрузке товара на сервер');
+            });
         });
     },
 

@@ -1,6 +1,7 @@
 {
   "products": [
     {
+      "id": 1,
       "name": "Xbox series X + геймпад",
       "images": [
         "img/xbox.jpg",
@@ -18,6 +19,7 @@
       ]
     },
     {
+      "id": 2,
       "name": "Samsung UE40KU6020U",
       "images": [
         "img/samsung-tv.jpg"
@@ -29,6 +31,7 @@
       ]
     },
     {
+      "id": 3,
       "name": "Ноутбук ACER Aspire 3 A317-51G-78XF",
       "images": [
         "img/acer-aspire.jpg"
@@ -41,6 +44,7 @@
       ]
     },
     {
+      "id": 4,
       "name": "Системный блок игровой HyperPC M6",
       "images": [
         "img/HyperPC.jpg"
@@ -53,6 +57,7 @@
       ]
     },
     {
+      "id": 5,
       "name": "Electrolux PerfectCare 600 EW6S4R06W",
       "images": [
         "img/Electrolux.jpg"
@@ -64,6 +69,7 @@
       ]
     },
     {
+      "id": 6,
       "name": "Микроволновая печь Gorenje MO20MW",
       "images": [
         "img/Gorenje.jpeg"
@@ -73,6 +79,23 @@
         "microwave",
         "appliances"
       ]
+    },
+    {
+      "name": "Macbook Pro 13''",
+      "price": "60 000",
+      "images": [
+        "img/macbook.jpg",
+        "img/macbook2.jpg"
+      ],
+      "categories": [
+        "electronics",
+        "computers",
+        "notebook"
+      ],
+      "characteristics": [
+        "Диагональ 13 дюймов"
+      ],
+      "id": 7
     }
   ],
   "users": [
