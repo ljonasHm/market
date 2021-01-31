@@ -20,11 +20,10 @@ const controlPanel = {
         </div>
         <div class="panel__main">
             <div class="panel__mark-list">
-                <div class="panel__mark panel__mark-checked">Добавление товара</div>
-                <div class="panel__mark">Добавление категории</div>
-                <div class="panel__mark">Добавление администратора</div>
+                <div class="panel__mark panel__mark-checked" data-control="product">Добавление товара</div>
+                <div class="panel__mark" data-control="categories">Добавление категории</div>
             </div>
-            <form class="panel__control-product">
+            <form class="panel__control-product" data-control="product">
                 <div class="panel__control-string">
                     <p class="panel__control-p">Имя продукта:</p>
                     <input class="panel__input" name="name" type="text">
@@ -62,6 +61,12 @@ const controlPanel = {
                 </div>
                 <div class="panel__control-string">
                     <button class="panel__control-button" id="panel__control-submit-product">Принять</button>
+                    <button class="panel__control-button panel__control-clear">Очистить</button>
+                </div>
+            </form>
+            <form class="panel__control-categories hide" data-control="categories">
+                <div class="panel__control-string">
+                    <button class="panel__control-button" id="panel__control-submit-categories">Принять</button>
                     <button class="panel__control-button panel__control-clear">Очистить</button>
                 </div>
             </form>
@@ -182,6 +187,8 @@ const controlPanel = {
 
     clickMark() {
         const marks = document.querySelectorAll('.panel__mark');
+        const controlPanel = document.querySelector(`.${this.panelClass}`);
+        const controlPanelForms = controlPanel.querySelectorAll('form');
 
         marks.forEach((mark) => {
             mark.addEventListener('click', () => {
@@ -189,6 +196,13 @@ const controlPanel = {
                     mark.classList.remove('panel__mark-checked');
                 });
                 mark.classList.add('panel__mark-checked');
+                controlPanelForms.forEach((form) => {
+                    if(form.dataset.control == mark.dataset.control) {
+                        form.classList.remove('hide');
+                    } else if(!form.classList.contains('hide')) {
+                        form.classList.add('hide');
+                    }
+                });
             });
         });
     },
