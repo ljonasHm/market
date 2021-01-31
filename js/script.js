@@ -1,4 +1,3 @@
-import {openUpList} from './openUpList';
 import cardsRender from './cardsRender';
 import modal from './modal';
 import form from './form';
@@ -6,6 +5,7 @@ import login from './login';
 import {basket} from './basket';
 import {search} from './search';
 import {meetingSlider} from './meetingSlider';
+import {renderCategories} from './renderCategories';
 
 const cardSliderSettings = {
     sliderStringSelector: '.modal__slider-string',
@@ -39,7 +39,7 @@ const meetingSliderSettings = {
     ]
 }
 
-openUpList(cardSliderSettings);
+renderCategories(cardSliderSettings);
 cardsRender('all', cardSliderSettings);
 modal();
 form();

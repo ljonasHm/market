@@ -36,6 +36,7 @@ function toggleMarker(ul) {
     childLies.forEach(li => {
         if(li.parentElement === ul) {
             li.classList.toggle('show');
+            li.classList.toggle('hide');
         }
     });
 }
@@ -46,8 +47,6 @@ function openUpList(cardSliderSettings) {
     const allUl = openUpListDiv.querySelectorAll('ul');
     const allMarkers = openUpListDiv.querySelectorAll('img');
     const searchInput = document.querySelector('.header__search--input');
-
-    
 
     allLi.forEach(li => {
         li.classList.add('hide');

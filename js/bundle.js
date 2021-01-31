@@ -843,6 +843,7 @@ function toggleMarker(ul) {
     childLies.forEach(li => {
         if(li.parentElement === ul) {
             li.classList.toggle('show');
+            li.classList.toggle('hide');
         }
     });
 }
@@ -853,8 +854,6 @@ function openUpList(cardSliderSettings) {
     const allUl = openUpListDiv.querySelectorAll('ul');
     const allMarkers = openUpListDiv.querySelectorAll('img');
     const searchInput = document.querySelector('.header__search--input');
-
-    
 
     allLi.forEach(li => {
         li.classList.add('hide');
@@ -884,6 +883,88 @@ function openUpList(cardSliderSettings) {
     })
 }
 
+
+
+
+/***/ }),
+
+/***/ "./js/renderCategories.js":
+/*!********************************!*\
+  !*** ./js/renderCategories.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderCategories": () => /* binding */ renderCategories
+/* harmony export */ });
+/* harmony import */ var _request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request */ "./js/request.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
+/* harmony import */ var _openUpList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./openUpList */ "./js/openUpList.js");
+
+;
+
+
+
+function renderChildren(parent, parentName, categories) {
+    const childrenCategories = categories.filter((item) => {
+        if (item.parent == parentName) {
+            return true;
+        }
+    });
+    childrenCategories.forEach((item) => {
+        const newCategory = document.createElement('li');
+
+        if(!item.children) {
+            newCategory.dataset.category = item.name;
+            newCategory.innerHTML = `<p>${item.name}</p>`;
+            parent.append(newCategory);
+        } else {
+            const newCategoryUl = document.createElement('ul');
+            
+            newCategory.classList.add('with-small-marker');
+            newCategoryUl.dataset.category = item.name;
+            newCategoryUl.innerHTML = `
+                <p><img class="products__marker" src="img/marker.png">${item.name}</p>
+            `;
+            parent.append(newCategory);
+            newCategory.append(newCategoryUl);
+            renderChildren(newCategoryUl, item.name, categories);
+        }
+    });
+}
+
+function render(categories) {
+    const categoriesDiv = document.querySelector('.products__categories');
+
+    const mainCategories = categories.filter((item) => {
+        if (item.parent === '') {
+            return true;
+        }
+    });
+    mainCategories.forEach(category => {
+        const newCategory = document.createElement('ul');
+
+        newCategory.classList.add('products__categories--ul');
+        newCategory.dataset.category = category.name;
+        newCategory.innerHTML = `
+        <p><img class="category__marker" src="img/marker.png">${category.name}</p>
+        `;
+        categoriesDiv.append(newCategory);
+        renderChildren(newCategory, category.name, categories);
+    });
+}
+
+function renderCategories(cardSliderSettings) {
+    (0,_request__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/categories')
+    .then((categories) => {
+        render(categories);
+        (0,_openUpList__WEBPACK_IMPORTED_MODULE_2__.openUpList)(cardSliderSettings);
+    })
+    .catch(() => {
+        (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)("Произошла ошибка на сервере");
+    })
+}
 
 
 
@@ -940,14 +1021,14 @@ const postResource = async (url, data) => {
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _openUpList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./openUpList */ "./js/openUpList.js");
-/* harmony import */ var _cardsRender__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cardsRender */ "./js/cardsRender.js");
-/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
-/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./form */ "./js/form.js");
-/* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login */ "./js/login.js");
-/* harmony import */ var _basket__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./basket */ "./js/basket.js");
-/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./search */ "./js/search.js");
-/* harmony import */ var _meetingSlider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./meetingSlider */ "./js/meetingSlider.js");
+/* harmony import */ var _cardsRender__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cardsRender */ "./js/cardsRender.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal */ "./js/modal.js");
+/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form */ "./js/form.js");
+/* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./login */ "./js/login.js");
+/* harmony import */ var _basket__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./basket */ "./js/basket.js");
+/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./search */ "./js/search.js");
+/* harmony import */ var _meetingSlider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./meetingSlider */ "./js/meetingSlider.js");
+/* harmony import */ var _renderCategories__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./renderCategories */ "./js/renderCategories.js");
 
 
 
@@ -989,14 +1070,14 @@ const meetingSliderSettings = {
     ]
 }
 
-;(0,_openUpList__WEBPACK_IMPORTED_MODULE_0__.openUpList)(cardSliderSettings);
-(0,_cardsRender__WEBPACK_IMPORTED_MODULE_1__.default)('all', cardSliderSettings);
-(0,_modal__WEBPACK_IMPORTED_MODULE_2__.default)();
-(0,_form__WEBPACK_IMPORTED_MODULE_3__.default)();
-(0,_login__WEBPACK_IMPORTED_MODULE_4__.default)();
-(0,_basket__WEBPACK_IMPORTED_MODULE_5__.basket)();
-(0,_search__WEBPACK_IMPORTED_MODULE_6__.search)(cardSliderSettings);
-(0,_meetingSlider__WEBPACK_IMPORTED_MODULE_7__.meetingSlider)(meetingSliderSettings);
+;(0,_renderCategories__WEBPACK_IMPORTED_MODULE_7__.renderCategories)(cardSliderSettings);
+(0,_cardsRender__WEBPACK_IMPORTED_MODULE_0__.default)('all', cardSliderSettings);
+(0,_modal__WEBPACK_IMPORTED_MODULE_1__.default)();
+(0,_form__WEBPACK_IMPORTED_MODULE_2__.default)();
+(0,_login__WEBPACK_IMPORTED_MODULE_3__.default)();
+(0,_basket__WEBPACK_IMPORTED_MODULE_4__.basket)();
+(0,_search__WEBPACK_IMPORTED_MODULE_5__.search)(cardSliderSettings);
+(0,_meetingSlider__WEBPACK_IMPORTED_MODULE_6__.meetingSlider)(meetingSliderSettings);
 
 /***/ }),
 
