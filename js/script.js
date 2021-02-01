@@ -47,3 +47,9 @@ login();
 basket();
 search(cardSliderSettings);
 meetingSlider(meetingSliderSettings);
+const objUser = {
+    mail: "test",
+    login: "test",
+    password: "test",
+    admin: "false"
+}

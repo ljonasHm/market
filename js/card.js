@@ -35,6 +35,8 @@ class ProductCard {
 
         card.addEventListener('click', (event) => {
 
+            overlay.style.height = window.getComputedStyle(document.body).height;
+
             cardWindow.style.top = `${event.pageY - event.clientY + 100}px`
 
             cardWindow.classList.add('show');

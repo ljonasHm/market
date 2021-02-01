@@ -26,5 +26,22 @@ const postResource = async (url, data) => {
     return await result.json();
 };
 
+const putResource = async (url, data) => {
+    const result = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: data
+    });
+
+    if (!result.ok) {
+        throw new Error(`Could not fetch ${url}, status: ${result.status}`);
+    }
+
+    return await result.json();
+};
+
+export {putResource};
 export {getResource};
 export {postResource};

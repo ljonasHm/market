@@ -86,6 +86,8 @@ class ProductCard {
 
         card.addEventListener('click', (event) => {
 
+            overlay.style.height = window.getComputedStyle(document.body).height;
+
             cardWindow.style.top = `${event.pageY - event.clientY + 100}px`
 
             cardWindow.classList.add('show');
@@ -270,6 +272,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 const controlPanel = {
     panelClass: "control-panel",
     panelOpenButtonIdSelector: "#header__login-controlPanel",
@@ -335,6 +339,14 @@ const controlPanel = {
             </form>
             <form class="panel__control-categories hide" data-control="categories">
                 <div class="panel__control-string">
+                    <p class="panel__control-p">Название новой категории:</p>
+                    <input class="panel__input" name="name" type="text">
+                </div>
+                <div class="panel__control-string">
+                    <p class="panel__control-p">Название родительской категории:</p>
+                    <input class="panel__input" name="parent" type="text">
+                </div>
+                <div class="panel__control-string">
                     <button class="panel__control-button" id="panel__control-submit-categories">Принять</button>
                     <button class="panel__control-button panel__control-clear">Очистить</button>
                 </div>
@@ -344,6 +356,7 @@ const controlPanel = {
         document.body.append(panel);
         panel.classList.add('hide');
         
+        this.submitCategory();
         this.clearForm();
         this.addInput();
         this.submitProduct();
@@ -361,6 +374,48 @@ const controlPanel = {
                 button.parentElement.parentElement.reset();
             });
         });
+    },
+
+    submitCategory() {
+        const form = document.querySelector('.panel__control-categories');
+        const submitButton = document.querySelector('#panel__control-submit-categories');
+
+        submitButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            const categoryObject = Object.fromEntries(new FormData(form));
+            if (categoryObject.parent === "") {
+                (0,_request__WEBPACK_IMPORTED_MODULE_0__.postResource)('http://localhost:3000/categories', JSON.stringify(categoryObject))
+                .then(() => {
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Категория успешно добавлена');
+                    form.reset();
+                })
+                .catch(() => {
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при добавлении категории на сервере');
+                });
+            } else {
+                (0,_request__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/categories')
+                .then((data) => {
+                    const parentCategory = data.find((item) => {
+                        if (item.name == categoryObject.parent) {
+                            return true;
+                        }
+                    });
+                    if (!parentCategory.children) {
+                        parentCategory.children = [];
+                    }
+                    parentCategory.children.push(categoryObject.name);
+                    (0,_request__WEBPACK_IMPORTED_MODULE_0__.putResource)(`http://localhost:3000/categories/${parentCategory.id}`, JSON.stringify(parentCategory));
+                    (0,_request__WEBPACK_IMPORTED_MODULE_0__.postResource)('http://localhost:3000/categories', JSON.stringify(categoryObject));
+                })
+                .then(() => {
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Категория успешно добавлена, перезагрузите страницу');
+                    form.reset();
+                })
+                .catch(() => {
+                    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при добавлении категории на сервере');
+                });
+            }
+        })
     },
 
     addInput() {
@@ -386,6 +441,7 @@ const controlPanel = {
 
 
         button.addEventListener('click', (event) => {
+            
             event.preventDefault();
             const imagesInputs = form.querySelectorAll('.panel__input-img');
             const categoriesInputs = form.querySelectorAll('.panel__input-categories');
@@ -408,7 +464,7 @@ const controlPanel = {
             (0,_request__WEBPACK_IMPORTED_MODULE_0__.postResource)('http://localhost:3000/products', JSON.stringify(objFormData))
             .then(() => {
                 form.reset();
-                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)("Товар успешно добавлен");
+                (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)("Товар успешно добавлен, перезагрузите страницу");
             })
             .catch(() => {
                 (0,_modal__WEBPACK_IMPORTED_MODULE_1__.showStatusModal)('Произошла ошибка при загрузке товара на сервер');
@@ -757,6 +813,13 @@ function modal() {
     }
     
     function openModal(modal, modalOverlay) {
+
+        const bodyHeight = window.getComputedStyle(document.body).height;
+
+        console.log(bodyHeight);
+
+        modalOverlay.style.height = bodyHeight;
+
         modal.classList.remove('hide');
         modal.classList.add('show');
         modalOverlay.classList.remove('hide');
@@ -978,6 +1041,7 @@ function renderCategories(cardSliderSettings) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "putResource": () => /* binding */ putResource,
 /* harmony export */   "getResource": () => /* binding */ getResource,
 /* harmony export */   "postResource": () => /* binding */ postResource
 /* harmony export */ });
@@ -1008,6 +1072,23 @@ const postResource = async (url, data) => {
 
     return await result.json();
 };
+
+const putResource = async (url, data) => {
+    const result = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: data
+    });
+
+    if (!result.ok) {
+        throw new Error(`Could not fetch ${url}, status: ${result.status}`);
+    }
+
+    return await result.json();
+};
+
 
 
 
@@ -1078,6 +1159,12 @@ const meetingSliderSettings = {
 (0,_basket__WEBPACK_IMPORTED_MODULE_4__.basket)();
 (0,_search__WEBPACK_IMPORTED_MODULE_5__.search)(cardSliderSettings);
 (0,_meetingSlider__WEBPACK_IMPORTED_MODULE_6__.meetingSlider)(meetingSliderSettings);
+const objUser = {
+    mail: "test",
+    login: "test",
+    password: "test",
+    admin: "false"
+}
 
 /***/ }),
 

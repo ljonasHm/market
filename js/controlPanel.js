@@ -1,4 +1,6 @@
 import {postResource} from "./request";
+import {getResource} from "./request";
+import {putResource} from './request';
 import {showStatusModal} from './modal';
 
 const controlPanel = {
@@ -66,6 +68,14 @@ const controlPanel = {
             </form>
             <form class="panel__control-categories hide" data-control="categories">
                 <div class="panel__control-string">
+                    <p class="panel__control-p">Название новой категории:</p>
+                    <input class="panel__input" name="name" type="text">
+                </div>
+                <div class="panel__control-string">
+                    <p class="panel__control-p">Название родительской категории:</p>
+                    <input class="panel__input" name="parent" type="text">
+                </div>
+                <div class="panel__control-string">
                     <button class="panel__control-button" id="panel__control-submit-categories">Принять</button>
                     <button class="panel__control-button panel__control-clear">Очистить</button>
                 </div>
@@ -75,6 +85,7 @@ const controlPanel = {
         document.body.append(panel);
         panel.classList.add('hide');
         
+        this.submitCategory();
         this.clearForm();
         this.addInput();
         this.submitProduct();
@@ -92,6 +103,48 @@ const controlPanel = {
                 button.parentElement.parentElement.reset();
             });
         });
+    },
+
+    submitCategory() {
+        const form = document.querySelector('.panel__control-categories');
+        const submitButton = document.querySelector('#panel__control-submit-categories');
+
+        submitButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            const categoryObject = Object.fromEntries(new FormData(form));
+            if (categoryObject.parent === "") {
+                postResource('http://localhost:3000/categories', JSON.stringify(categoryObject))
+                .then(() => {
+                    showStatusModal('Категория успешно добавлена');
+                    form.reset();
+                })
+                .catch(() => {
+                    showStatusModal('Произошла ошибка при добавлении категории на сервере');
+                });
+            } else {
+                getResource('http://localhost:3000/categories')
+                .then((data) => {
+                    const parentCategory = data.find((item) => {
+                        if (item.name == categoryObject.parent) {
+                            return true;
+                        }
+                    });
+                    if (!parentCategory.children) {
+                        parentCategory.children = [];
+                    }
+                    parentCategory.children.push(categoryObject.name);
+                    putResource(`http://localhost:3000/categories/${parentCategory.id}`, JSON.stringify(parentCategory));
+                    postResource('http://localhost:3000/categories', JSON.stringify(categoryObject));
+                })
+                .then(() => {
+                    showStatusModal('Категория успешно добавлена, перезагрузите страницу');
+                    form.reset();
+                })
+                .catch(() => {
+                    showStatusModal('Произошла ошибка при добавлении категории на сервере');
+                });
+            }
+        })
     },
 
     addInput() {
@@ -117,6 +170,7 @@ const controlPanel = {
 
 
         button.addEventListener('click', (event) => {
+            
             event.preventDefault();
             const imagesInputs = form.querySelectorAll('.panel__input-img');
             const categoriesInputs = form.querySelectorAll('.panel__input-categories');
@@ -139,7 +193,7 @@ const controlPanel = {
             postResource('http://localhost:3000/products', JSON.stringify(objFormData))
             .then(() => {
                 form.reset();
-                showStatusModal("Товар успешно добавлен");
+                showStatusModal("Товар успешно добавлен, перезагрузите страницу");
             })
             .catch(() => {
                 showStatusModal('Произошла ошибка при загрузке товара на сервер');

@@ -58,6 +58,13 @@ function modal() {
     }
     
     function openModal(modal, modalOverlay) {
+
+        const bodyHeight = window.getComputedStyle(document.body).height;
+
+        console.log(bodyHeight);
+
+        modalOverlay.style.height = bodyHeight;
+
         modal.classList.remove('hide');
         modal.classList.add('show');
         modalOverlay.classList.remove('hide');
