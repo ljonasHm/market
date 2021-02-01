@@ -1135,6 +1135,7 @@ const meetingSliderSettings = {
     sliderButtonLeftSelector: '#meeting-slider__arrow-left',
     sliderButtonRightSelector: '#meeting-slider__arrow-right',
     imageDivClassName: 'meeting-slider__slide',
+    timeout: 4000,
     buttonsAnimation: false,
     fullHeightSize: false,
     widthOfImgWrapper: 1020,
@@ -1212,9 +1213,17 @@ function slider(settings, images) {
     const sliderString = document.querySelector(settings.sliderStringSelector);
     const sliderButtonLeft = document.querySelector(settings.sliderButtonLeftSelector);
     const sliderButtonRight = document.querySelector(settings.sliderButtonRightSelector);
+    let timer;
     let slidePlace = 0;
 
     sliderString.style.width = images.length * settings.widthOfImgWrapper + 'px';
+
+    if (settings.timeout) {
+        timer = setInterval(() => {
+            moveRight();
+        }, settings.timeout);
+    }
+
 
     images.forEach((img, index) => {
         const imageWrapper = document.createElement('div');
@@ -1249,13 +1258,9 @@ function slider(settings, images) {
                 sliderButtonLeft.style.backgroundSize = '100% auto';
             }, 100);
         }
-        
-        if(slidePlace < 0) {
-            sliderString.style.transform = `translateX(${slidePlace + settings.widthOfImgWrapper}px)`;
-            slidePlace = slidePlace + settings.widthOfImgWrapper;
-        } else {
-            slidePlace = (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper;
-            sliderString.style.transform = `translateX(${slidePlace}px)`;
+        moveLeft();
+        if (settings.timeout) {
+            clearInterval(timer);
         }
     });
 
@@ -1266,7 +1271,13 @@ function slider(settings, images) {
                 sliderButtonRight.style.backgroundSize = '100% auto';
             }, 100);            
         }
-        
+        moveRight();
+        if (settings.timeout) {
+            clearInterval(timer);
+        }
+    });
+
+    function moveRight() {
         if (slidePlace > (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper) {
             sliderString.style.transform = `translateX(${slidePlace - settings.widthOfImgWrapper}px)`;
             slidePlace = slidePlace - settings.widthOfImgWrapper;
@@ -1274,7 +1285,18 @@ function slider(settings, images) {
             slidePlace = 0;
             sliderString.style.transform = `translateX(${slidePlace}px)`;
         }
-    });
+        
+    }
+
+    function moveLeft() {
+        if(slidePlace < 0) {
+            sliderString.style.transform = `translateX(${slidePlace + settings.widthOfImgWrapper}px)`;
+            slidePlace = slidePlace + settings.widthOfImgWrapper;
+        } else {
+            slidePlace = (images.length * -settings.widthOfImgWrapper) + settings.widthOfImgWrapper;
+            sliderString.style.transform = `translateX(${slidePlace}px)`;
+        }
+    }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (slider);

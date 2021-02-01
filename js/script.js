@@ -23,6 +23,7 @@ const meetingSliderSettings = {
     sliderButtonLeftSelector: '#meeting-slider__arrow-left',
     sliderButtonRightSelector: '#meeting-slider__arrow-right',
     imageDivClassName: 'meeting-slider__slide',
+    timeout: 4000,
     buttonsAnimation: false,
     fullHeightSize: false,
     widthOfImgWrapper: 1020,
