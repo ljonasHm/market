@@ -31,7 +31,7 @@ header {
 }
 
 .header__search--input {
-    width: 90%;
+    width: 100%;
     border-width: 2px;
     border-style: inset;
     border-radius: 5px;
@@ -90,7 +90,7 @@ header {
 
 .meeting-slider {
     height: 500px;
-    width: 67%;
+    width: 1260px;
     margin: auto;
     display: flex;
 }
@@ -103,7 +103,7 @@ header {
 }
 
 .meeting-slider__arrow {
-    width: 10%;
+    width: 120px;
     height: 100%;
     background-color: rgb(231, 231, 231);
     background-position: center;
@@ -142,13 +142,6 @@ header {
     padding: 10px;
 }
 
-.meeting-slider__text-wrapper {
-    position: relative;
-    width: 300px;
-    height: 200px;
-    background-color: black;
-}
-
 #meeting-slider__arrow-left {
     background-image: url(/img/arrow-left2.png);
 }
@@ -158,8 +151,29 @@ header {
 }
 
 .products {
+    position: relative;
     width: 100%;
     display: flex;
+}
+
+.products__categories--show-button {
+    position: absolute;
+    display: none;
+    width: 50px;
+    height: 200px;
+    background-color:black;
+    color: white;
+    font-size: 30px;
+    top: 10px;
+    left: 0;
+    padding: 5px;
+    text-align: center;
+}
+
+.products__categories--show-p {
+    position: relative;
+    top: 125px;
+    transform: rotate(270deg);
 }
 
 .products__categories {
@@ -271,6 +285,10 @@ ul {
     padding: 15px 20px;
     font-size: 22px;
     font-family: "CrimsomText-regular";
+}
+
+.card__price-p {
+    font-size: 23px;
 }
 
 .price__basket-button {
@@ -451,6 +469,7 @@ ul {
 }
 
 .basket__list {
+    position: relative;
     height: 80%;
     width: 90%;
     margin: auto;
@@ -460,10 +479,12 @@ ul {
     overflow: scroll;
 }
 .basket__element {
+    position: relative;
     width: 100%;
     height: 70px;
     border-bottom: 1px solid black;
     display: flex;
+    overflow: hidden;
 }
 
 .basket__element-image {

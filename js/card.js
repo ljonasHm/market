@@ -63,8 +63,8 @@ class ProductCard {
         basketElement.innerHTML = `
             <div class="basket__element-delete">Удалить</div>
             <p class="basket__element-price">${this.price} руб</p>
-            <div class="basket__element-image"></div>
             <p class="basket__element-name">${this.name}</p>
+            <div class="basket__element-image"></div>
         `;
         basketElement.querySelector('.basket__element-image').style.backgroundImage = `url(${this.mainImage})`;
         basketList.append(basketElement);
@@ -84,8 +84,8 @@ class ProductCard {
             <div class="card__img"></div>
             <p class="card__name">${this.name}</p>
             <div class="card__price">
+                <p class="card__price-p">${this.price} руб</p>
                 <button class="price__basket-button">В корзину</button>
-                <p>${this.price} руб</p>
             </div>
         `;
         element.querySelector('.card__img').style.backgroundImage = `url(${this.mainImage})`;

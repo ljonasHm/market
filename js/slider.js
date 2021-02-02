@@ -7,6 +7,9 @@ function slider(settings, images) {
     const sliderButtonRight = document.querySelector(settings.sliderButtonRightSelector);
     let timer;
     let slidePlace = 0;
+    settings.widthOfImgWrapper = +window.getComputedStyle(document.querySelector(settings.sliderWrapperSelector)).width.replace(/px/g, '');
+    console.log(window.getComputedStyle(document.querySelector(settings.sliderWrapperSelector)).width);
+    console.log(settings.widthOfImgWrapper);
 
     sliderString.style.width = images.length * settings.widthOfImgWrapper + 'px';
 

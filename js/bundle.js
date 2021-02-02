@@ -114,8 +114,8 @@ class ProductCard {
         basketElement.innerHTML = `
             <div class="basket__element-delete">Удалить</div>
             <p class="basket__element-price">${this.price} руб</p>
-            <div class="basket__element-image"></div>
             <p class="basket__element-name">${this.name}</p>
+            <div class="basket__element-image"></div>
         `;
         basketElement.querySelector('.basket__element-image').style.backgroundImage = `url(${this.mainImage})`;
         basketList.append(basketElement);
@@ -135,8 +135,8 @@ class ProductCard {
             <div class="card__img"></div>
             <p class="card__name">${this.name}</p>
             <div class="card__price">
+                <p class="card__price-p">${this.price} руб</p>
                 <button class="price__basket-button">В корзину</button>
-                <p>${this.price} руб</p>
             </div>
         `;
         element.querySelector('.card__img').style.backgroundImage = `url(${this.mainImage})`;
@@ -831,6 +831,7 @@ function showStatusModal(message, coordinateY) {
     const statusWindow = document.querySelector('#modal__status');
     const overlay = document.querySelector('.modal__overlay');
 
+    overlay.style.height = window.getComputedStyle(document.body).height;
     statusWindow.style.top = coordinateY + 'px';
 
     if (overlay.classList.contains('hide')) {
@@ -917,6 +918,15 @@ function openUpList(cardSliderSettings) {
     const allUl = openUpListDiv.querySelectorAll('ul');
     const allMarkers = openUpListDiv.querySelectorAll('img');
     const searchInput = document.querySelector('.header__search--input');
+    const showCategoriesButton = document.querySelector('.products__categories--show-button');
+
+    showCategoriesButton.addEventListener('click', () => {
+        if (!(openUpListDiv.style.display == "inline")){
+            openUpListDiv.style.display = "inline";
+        } else {
+            openUpListDiv.style.display = "none";
+        }
+    });
 
     allLi.forEach(li => {
         li.classList.add('hide');
@@ -1119,53 +1129,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const cardSliderSettings = {
-    sliderStringSelector: '.modal__slider-string',
-    sliderButtonLeftSelector: '#modal__slider-arrow-left',
-    sliderButtonRightSelector: '#modal__slider-arrow-right',
-    imageWrapperClassName: 'modal__card-image-block',
-    imageDivClassName: 'modal__card-image',
-    buttonsAnimation: true,
-    fullHeightSize: true,
-    widthOfImgWrapper: 500
-}
-
-const meetingSliderSettings = {
-    sliderStringSelector: '.meeting-slider__string',
-    sliderButtonLeftSelector: '#meeting-slider__arrow-left',
-    sliderButtonRightSelector: '#meeting-slider__arrow-right',
-    imageDivClassName: 'meeting-slider__slide',
-    timeout: 4000,
-    buttonsAnimation: false,
-    fullHeightSize: false,
-    widthOfImgWrapper: 1020,
-    insertText: true,
-    text: [
-        "Dolore commodo nisi eiusmod quis",
-        "Est sint pariatur est adipisicing",
-        "Cupidatat nisi cupidatat aliqua elit culpa"
-    ],
-    textClassName: [
-        "meeting-slider__slide-text",
-        "meeting-slider__slide-text",
-        "meeting-slider__slide-text"
-    ]
-}
-
-;(0,_renderCategories__WEBPACK_IMPORTED_MODULE_7__.renderCategories)(cardSliderSettings);
-(0,_cardsRender__WEBPACK_IMPORTED_MODULE_0__.default)('all', cardSliderSettings);
-(0,_modal__WEBPACK_IMPORTED_MODULE_1__.default)();
-(0,_form__WEBPACK_IMPORTED_MODULE_2__.default)();
-(0,_login__WEBPACK_IMPORTED_MODULE_3__.default)();
-(0,_basket__WEBPACK_IMPORTED_MODULE_4__.basket)();
-(0,_search__WEBPACK_IMPORTED_MODULE_5__.search)(cardSliderSettings);
-(0,_meetingSlider__WEBPACK_IMPORTED_MODULE_6__.meetingSlider)(meetingSliderSettings);
-const objUser = {
-    mail: "test",
-    login: "test",
-    password: "test",
-    admin: "false"
-}
+window.addEventListener('DOMContentLoaded' , () => {
+    const cardSliderSettings = {
+        sliderStringSelector: '.modal__slider-string',
+        sliderButtonLeftSelector: '#modal__slider-arrow-left',
+        sliderButtonRightSelector: '#modal__slider-arrow-right',
+        imageWrapperClassName: 'modal__card-image-block',
+        imageDivClassName: 'modal__card-image',
+        sliderWrapperSelector: '.modal__slider-block',
+        buttonsAnimation: true,
+        fullHeightSize: true
+    }
+    
+    const meetingSliderSettings = {
+        sliderStringSelector: '.meeting-slider__string',
+        sliderButtonLeftSelector: '#meeting-slider__arrow-left',
+        sliderButtonRightSelector: '#meeting-slider__arrow-right',
+        imageDivClassName: 'meeting-slider__slide',
+        sliderWrapperSelector: '.meeting-slider__wrapper',
+        timeout: 4000,
+        buttonsAnimation: false,
+        fullHeightSize: false,
+        insertText: true,
+        text: [
+            "Dolore commodo nisi eiusmod quis",
+            "Est sint pariatur est adipisicing",
+            "Cupidatat nisi cupidatat aliqua elit culpa"
+        ],
+        textClassName: [
+            "meeting-slider__slide-text",
+            "meeting-slider__slide-text",
+            "meeting-slider__slide-text"
+        ]
+    }
+    
+    ;(0,_renderCategories__WEBPACK_IMPORTED_MODULE_7__.renderCategories)(cardSliderSettings);
+    (0,_cardsRender__WEBPACK_IMPORTED_MODULE_0__.default)('all', cardSliderSettings);
+    (0,_modal__WEBPACK_IMPORTED_MODULE_1__.default)();
+    (0,_form__WEBPACK_IMPORTED_MODULE_2__.default)();
+    (0,_login__WEBPACK_IMPORTED_MODULE_3__.default)();
+    (0,_basket__WEBPACK_IMPORTED_MODULE_4__.basket)();
+    (0,_search__WEBPACK_IMPORTED_MODULE_5__.search)(cardSliderSettings);
+    (0,_meetingSlider__WEBPACK_IMPORTED_MODULE_6__.meetingSlider)(meetingSliderSettings);
+})
 
 /***/ }),
 
@@ -1215,6 +1221,9 @@ function slider(settings, images) {
     const sliderButtonRight = document.querySelector(settings.sliderButtonRightSelector);
     let timer;
     let slidePlace = 0;
+    settings.widthOfImgWrapper = +window.getComputedStyle(document.querySelector(settings.sliderWrapperSelector)).width.replace(/px/g, '');
+    console.log(window.getComputedStyle(document.querySelector(settings.sliderWrapperSelector)).width);
+    console.log(settings.widthOfImgWrapper);
 
     sliderString.style.width = images.length * settings.widthOfImgWrapper + 'px';
 

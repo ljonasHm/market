@@ -47,6 +47,15 @@ function openUpList(cardSliderSettings) {
     const allUl = openUpListDiv.querySelectorAll('ul');
     const allMarkers = openUpListDiv.querySelectorAll('img');
     const searchInput = document.querySelector('.header__search--input');
+    const showCategoriesButton = document.querySelector('.products__categories--show-button');
+
+    showCategoriesButton.addEventListener('click', () => {
+        if (!(openUpListDiv.style.display == "inline")){
+            openUpListDiv.style.display = "inline";
+        } else {
+            openUpListDiv.style.display = "none";
+        }
+    });
 
     allLi.forEach(li => {
         li.classList.add('hide');

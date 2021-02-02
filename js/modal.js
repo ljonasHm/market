@@ -76,6 +76,7 @@ function showStatusModal(message, coordinateY) {
     const statusWindow = document.querySelector('#modal__status');
     const overlay = document.querySelector('.modal__overlay');
 
+    overlay.style.height = window.getComputedStyle(document.body).height;
     statusWindow.style.top = coordinateY + 'px';
 
     if (overlay.classList.contains('hide')) {
