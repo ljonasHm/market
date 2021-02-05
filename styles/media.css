@@ -54,6 +54,12 @@
     }
 }
 
+@media (min-width: 1200px) {
+    .basket__element-info {
+        display: flex;
+    }
+}
+
 @media (max-width: 1200px) {
     .products__card {
         height: 360px;
@@ -82,10 +88,10 @@
     }
     .modal__basket {
         height: 400px;
-        min-width: 0px;
+        min-width: 0;
     }
     .basket__list {
-        width: 80%;
+        width: 500px;
     }
     .basket__overlay-h1 {
         line-height: 200px;
@@ -95,12 +101,40 @@
         height: 45px;
         font-size: 18px;
     }
+    .basket__element-info {
+        position: relative;
+        width: 40%;
+        height: 100%;
+    }
     .basket__element-delete {
+        left: 50%;
         font-size: 14px;
+        margin: 10px 5px;
         height: 20px;
+        width: 75px;
+    }
+    .basket__element-price {
+        margin: 10px 5px;
     }
     .basket__element {
-        height: 50px;
+        position: relative;
+        height: 200px;
+    }
+    .basket__element-name {
+        margin: 5px 5px;
+        white-space: pre-wrap;
+    }
+    .basket__element-image {
+        background-size: auto 90%;
+        width: 60%;
+        height: 100%;
+    }
+    .basket__payment-sum {
+        font-size: 20px;
+    }
+    .basket__payment {
+        font-size: 15px;
+        width: 100px;
     }
 }
 
@@ -115,7 +149,7 @@
     .meeting-slider__wrapper {
         width: 500px;
     }
-    .meeting-slider__arrow {
+    .meeting-slider__arrow S{
         width: 50px;
     }
     .meeting-slider__slide {
@@ -289,9 +323,38 @@
     .products__categories {
         width: 40%;
     }
-}
-
-@media (max-width: 650px) {
+    .modal__basket {
+        padding: 45px 5px 30px 5px;
+        width: 360px;
+    }
+    .basket__list {
+        width: 350px;
+    }
+    .basket__element-name {
+        font-size: 17px;
+    }
+    .basket__element-price {
+        font-size: 17px;
+    }
+    .basket__element-delete {
+        font-size: 13px;
+        width: 70px;
+        height: 20px;
+    }
+    .basket__element-image {
+        background-size: auto 60%;
+    }
+    .basket__payment-div {
+        padding: 0 5px;
+    }
+    .basket__payment-sum {
+        font-size: 17px;
+    }
+    .basket__payment {
+        font-size: 13px;
+        width: 90px;
+        height: 40px;
+    }
     h1 {
         font-size: 20px;
     }
@@ -316,6 +379,32 @@
     }
     header{
         justify-content: center;
+    }
+    .control-panel {
+        width: 350px;
+    }
+    .panel__main {
+        width: 340px;
+        margin: 0;
+    }
+    .panel__mark {
+        font-size: 13px;
+    }
+    .panel__control-product {
+        width: 330px;
+        padding: 0 5px;
+    }
+    .panel__control-p {
+        font-size: 13px;
+    }
+    .panel__control-button {
+        font-size: 13px;
+    }
+    .panel__button-plus {
+        font-size: 13px;
+        width: 30px;
+        height: 25px;
+        text-align: center;
     }
 }
 

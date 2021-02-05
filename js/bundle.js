@@ -112,9 +112,11 @@ class ProductCard {
 
         basketElement.classList.add('basket__element');
         basketElement.innerHTML = `
-            <div class="basket__element-delete">Удалить</div>
-            <p class="basket__element-price">${this.price} руб</p>
-            <p class="basket__element-name">${this.name}</p>
+            <div class="basket__element-info">
+                <div class="basket__element-delete">Удалить</div>
+                <p class="basket__element-price">${this.price} руб</p>
+                <p class="basket__element-name">${this.name}</p>
+            </div>
             <div class="basket__element-image"></div>
         `;
         basketElement.querySelector('.basket__element-image').style.backgroundImage = `url(${this.mainImage})`;
